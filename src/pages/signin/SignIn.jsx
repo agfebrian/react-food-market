@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Page, Container } from "../../components/layout";
 import { Input, Button, Navigation } from "../../components/ui";
 
 export const SignIn = () => {
+  const navigate = useNavigate();
+
   return (
     <Page>
       <Container>
@@ -25,7 +28,11 @@ export const SignIn = () => {
             <Button type="submit" color="primary">
               Sign In
             </Button>
-            <Button type="button" color="secondary">
+            <Button
+              type="button"
+              color="secondary"
+              handleClick={() => navigate("/register")}
+            >
               Create New Account
             </Button>
           </form>
