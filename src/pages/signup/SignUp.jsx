@@ -25,8 +25,8 @@ export const SignUp = () => {
             autoComplete="off"
             className="mt-5 flex flex-col gap-4 bg-white px-6 py-7"
           >
-            <BorderAvatar size="28" rounded="circle" className="mx-auto">
-              <Avatar size="24" rounded="circle" />
+            <BorderAvatar rounded="circle" className="mx-auto">
+              <Avatar rounded="circle" />
             </BorderAvatar>
             <Input
               label="Full Name"

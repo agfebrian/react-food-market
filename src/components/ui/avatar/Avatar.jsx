@@ -3,8 +3,15 @@ import clsx from "clsx";
 
 export const Avatar = ({ size, rounded, photo, className }) => {
   const showSize = (size) => {
-    // Size available like as sizing on tailwind classes
-    return `w-${size} h-${size}`;
+    switch (size) {
+      case "lg":
+        return "h-24 w-24";
+      case "md":
+        return "h-14 w-14";
+      default:
+        return "h-24 w-24";
+        break;
+    }
   };
 
   const showRounded = (rounded) => {
