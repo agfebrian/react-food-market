@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Page, Container } from "../../components/layout";
 import {
   Navigation,
@@ -9,6 +10,8 @@ import {
 } from "../../components/ui";
 
 export const SignUp = () => {
+  const navigate = useNavigate();
+
   return (
     <Page>
       <Container>
@@ -42,7 +45,12 @@ export const SignUp = () => {
               autoComplete="new-password"
               placeholder="Type your password"
             />
-            <Button type="submit" color="primary" className="mt-2">
+            <Button
+              type="submit"
+              color="primary"
+              className="mt-2"
+              handleClick={() => navigate("/register/address")}
+            >
               Continue
             </Button>
           </form>
