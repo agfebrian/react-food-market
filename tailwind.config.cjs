@@ -10,6 +10,7 @@ export default {
       colors: {
         brand: "#FFC700",
         "brand-grey": "#FAFAFC",
+        "brand-grey-1": "#F2F2F2",
         "brand-secondary": "#8D92A3",
       },
     },
