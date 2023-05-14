@@ -1,17 +1,19 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Page, Container } from "../../components/layout";
-import { Navigation, Button, Input, Select } from "../../components/ui";
+import { Navigation, Button, Input, Select, Alert } from "../../components/ui";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import http from "../../app/http";
 import { useNavigate } from "react-router-dom";
+import { setAlert } from "../../slices/alertSlice";
 
 export const Address = () => {
   const signup = useSelector((state) => state.signup);
   const [loading, setLoading] = useState();
   const navigation = useNavigate();
+  const dispatch = useDispatch();
   const {
     values,
     handleChange,
@@ -45,8 +47,36 @@ export const Address = () => {
       };
       http
         .post("/register", payload)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+        .then((res) => {
+          const {
+            status,
+            data: { data },
+          } = res;
+          console.log(data);
+          if (status === 200) {
+            dispatch(
+              setAlert({
+                show: true,
+                message: "Success user register",
+                type: "success",
+              })
+            );
+          }
+        })
+        .catch((err) => {
+          const {
+            response: {
+              data: { errors },
+            },
+          } = err;
+          dispatch(
+            setAlert({
+              show: true,
+              message: Object.values(errors)[0][0],
+              type: "error",
+            })
+          );
+        })
         .finally(() => setLoading(false));
     },
   });
@@ -54,6 +84,7 @@ export const Address = () => {
   return (
     <Page>
       <Container>
+        <Alert />
         <div className="max-h-screen overflow-hidden">
           <Navigation
             isBack={true}
