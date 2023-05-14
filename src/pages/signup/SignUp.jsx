@@ -11,27 +11,44 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSignup } from "../../slices/signupSlice";
 
 export const SignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState();
-  const { values, handleChange, errors, handleSubmit } = useFormik({
+  const {
+    values,
+    handleChange,
+    errors,
+    touched,
+    setFieldTouched,
+    handleSubmit,
+  } = useFormik({
     initialValues: {
-      name: "",
+      fullName: "",
       email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Nama dibutuhkan"),
+      fullName: Yup.string().required("Full Name is required"),
       email: Yup.string()
-        .email("Format email tidak sesuai")
-        .required("Email diperlukan"),
-      password: Yup.string().required("Password diperlukan"),
+        .email("Email is invalid")
+        .required("Email is required"),
+      password: Yup.string().required("Password is required"),
     }),
     onSubmit: async (values) => {
       setLoading(true);
       await new Promise((r) => setTimeout(r, 1000));
-      console.log(values);
+      dispatch(
+        setSignup({
+          fullName: values.fullName,
+          email: values.email,
+          password: values.password,
+        })
+      );
+      navigate("/register/address");
       setLoading(false);
     },
   });
@@ -57,14 +74,17 @@ export const SignUp = () => {
               <Input
                 label="Full Name"
                 type="text"
-                name="name"
-                value={values.name}
+                name="fullName"
+                value={values.fullName}
                 onChange={handleChange}
+                onFocus={() => setFieldTouched("fullName", true)}
                 placeholder="Type your full name"
-                className={errors.name ? "border-error" : ""}
+                className={
+                  touched.fullName && errors.fullName ? "border-error" : ""
+                }
               />
-              {errors.name && (
-                <p className="mt-1 text-sm text-error">{errors.name}</p>
+              {touched.fullName && errors.fullName && (
+                <p className="mt-1 text-sm text-error">{errors.fullName}</p>
               )}
             </div>
             <div>
@@ -74,11 +94,12 @@ export const SignUp = () => {
                 name="email"
                 value={values.email}
                 onChange={handleChange}
+                onFocus={() => setFieldTouched("email", true)}
                 autoComplete="off"
                 placeholder="Type your email address"
-                className={errors.email ? "border-error" : ""}
+                className={touched.email && errors.email ? "border-error" : ""}
               />
-              {errors.email && (
+              {touched.email && errors.email && (
                 <p className="mt-1 text-sm text-error">{errors.email}</p>
               )}
             </div>
@@ -89,11 +110,14 @@ export const SignUp = () => {
                 name="password"
                 value={values.password}
                 onChange={handleChange}
+                onFocus={() => setFieldTouched("password", true)}
                 autoComplete="new-password"
                 placeholder="Type your password"
-                className={errors.password ? "border-error" : ""}
+                className={
+                  touched.password && errors.password ? "border-error" : ""
+                }
               />
-              {errors.password && (
+              {touched.password && errors.password && (
                 <p className="mt-1 text-sm text-error">{errors.password}</p>
               )}
             </div>
