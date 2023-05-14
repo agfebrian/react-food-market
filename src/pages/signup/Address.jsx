@@ -5,10 +5,13 @@ import { Page, Container } from "../../components/layout";
 import { Navigation, Button, Input, Select } from "../../components/ui";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import http from "../../app/http";
+import { useNavigate } from "react-router-dom";
 
 export const Address = () => {
   const signup = useSelector((state) => state.signup);
   const [loading, setLoading] = useState();
+  const navigation = useNavigate();
   const {
     values,
     handleChange,
@@ -18,13 +21,13 @@ export const Address = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      phone: "",
+      phoneNumber: "",
       address: "",
       houseNumber: "",
       city: "",
     },
     validationSchema: Yup.object({
-      phone: Yup.string()
+      phoneNumber: Yup.string()
         .min(11, "Phone minimal 11 number")
         .max(13, "Phone maximal 13 number")
         .required("Phone is required"),
@@ -32,8 +35,19 @@ export const Address = () => {
       houseNumber: Yup.string().required("House number is required"),
       city: Yup.string().required("City is required"),
     }),
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      setLoading(true);
+      await new Promise((r) => setTimeout(r, 1000));
+      const payload = {
+        ...signup,
+        ...values,
+        ...{ password_confirmation: signup.password },
+      };
+      http
+        .post("/register", payload)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     },
   });
 
@@ -45,6 +59,7 @@ export const Address = () => {
             isBack={true}
             title="Address"
             description="Make sure it's valid"
+            handleBack={() => navigation("/register")}
           />
           <form
             autoComplete="off"
@@ -55,15 +70,19 @@ export const Address = () => {
               <Input
                 label="Phone No."
                 type="number"
-                name="phone"
-                value={values.phone}
+                name="phoneNumber"
+                value={values.phoneNumber}
                 onChange={handleChange}
-                onFocus={() => setFieldTouched("phone", true)}
+                onFocus={() => setFieldTouched("phoneNumber", true)}
                 placeholder="Type your phone number"
-                className={touched.phone && errors.phone ? "border-error" : ""}
+                className={
+                  touched.phoneNumber && errors.phoneNumber
+                    ? "border-error"
+                    : ""
+                }
               />
-              {touched.phone && errors.phone && (
-                <p className="mt-1 text-sm text-error">{errors.phone}</p>
+              {touched.phoneNumber && errors.phoneNumber && (
+                <p className="mt-1 text-sm text-error">{errors.phoneNumber}</p>
               )}
             </div>
             <div>

@@ -27,23 +27,23 @@ export const SignUp = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      fullName: "",
+      name: "",
       email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      fullName: Yup.string().required("Full Name is required"),
+      name: Yup.string().required("Full Name is required"),
       email: Yup.string()
         .email("Email is invalid")
         .required("Email is required"),
-      password: Yup.string().required("Password is required"),
+      password: Yup.string().min(8).required("Password is required"),
     }),
     onSubmit: async (values) => {
       setLoading(true);
       await new Promise((r) => setTimeout(r, 1000));
       dispatch(
         setSignup({
-          fullName: values.fullName,
+          name: values.name,
           email: values.email,
           password: values.password,
         })
@@ -74,17 +74,15 @@ export const SignUp = () => {
               <Input
                 label="Full Name"
                 type="text"
-                name="fullName"
-                value={values.fullName}
+                name="name"
+                value={values.name}
                 onChange={handleChange}
-                onFocus={() => setFieldTouched("fullName", true)}
+                onFocus={() => setFieldTouched("name", true)}
                 placeholder="Type your full name"
-                className={
-                  touched.fullName && errors.fullName ? "border-error" : ""
-                }
+                className={touched.name && errors.name ? "border-error" : ""}
               />
-              {touched.fullName && errors.fullName && (
-                <p className="mt-1 text-sm text-error">{errors.fullName}</p>
+              {touched.name && errors.name && (
+                <p className="mt-1 text-sm text-error">{errors.name}</p>
               )}
             </div>
             <div>
