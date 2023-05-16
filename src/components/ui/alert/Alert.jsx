@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 import { setAlert } from "../../../slices/alertSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Close from "../../../assets/icons/close-circle.svg";
@@ -11,7 +12,10 @@ export const Alert = () => {
 
   return (
     show && (
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
         className={clsx(
           status,
           "absolute left-0 top-0 z-50 flex w-full items-start justify-between p-4"
@@ -26,7 +30,7 @@ export const Alert = () => {
             dispatch(setAlert({ show: false, message: "", type: "" }))
           }
         />
-      </div>
+      </motion.div>
     )
   );
 };
