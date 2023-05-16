@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Page, Container } from "../../components/layout";
-import { Navigation, Button, Input, Select, Alert } from "../../components/ui";
+import { Navigation, Button, Input, Select } from "../../components/ui";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import http from "../../app/http";
@@ -84,7 +84,6 @@ export const Address = () => {
   return (
     <Page>
       <Container>
-        <Alert />
         <div className="max-h-screen overflow-hidden">
           <Navigation
             isBack={true}
