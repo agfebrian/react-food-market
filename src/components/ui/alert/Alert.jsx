@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { setAlert } from "../../../slices/alertSlice";
 import { useSelector, useDispatch } from "react-redux";
+
 import Close from "../../../assets/icons/close-circle.svg";
 
 export const Alert = () => {
   const dispatch = useDispatch();
   const { show, message, type } = useSelector((state) => state.alert);
   const status = type === "success" ? "bg-green-500" : "bg-error";
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(setAlert({ show: false, message: "", type: "" }));
+    }, 3000);
+  }, []);
 
   return (
     show && (
