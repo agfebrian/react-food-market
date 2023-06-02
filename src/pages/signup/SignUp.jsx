@@ -61,6 +61,7 @@ export const SignUp = () => {
             isBack={true}
             title="Sign Up"
             description="Register and eat"
+            handleBack={() => navigate("/login")}
           />
           <form
             autoComplete="off"
