@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Page, Container } from "../../components/layout";
+import { Page, Container, SuccessSignUp } from "../../components/layout";
 import { Navigation, Button, Input, Select } from "../../components/ui";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -63,6 +63,7 @@ export const Address = () => {
               })
             );
             setToken(data.token);
+            setTimeout(() => setSuccessSignup(true), 1000);
           }
         })
         .catch((err) => {
@@ -82,104 +83,113 @@ export const Address = () => {
         .finally(() => setLoading(false));
     },
   });
+  const [successSignup, setSuccessSignup] = useState(false);
 
   return (
     <Page>
       <Container>
-        <div className="max-h-screen overflow-hidden">
-          <Navigation
-            isBack={true}
-            title="Address"
-            description="Make sure it's valid"
-            handleBack={() => navigation("/register")}
-          />
-          <form
-            autoComplete="off"
-            onSubmit={handleSubmit}
-            className="mt-5 flex min-h-screen flex-col gap-4 bg-white px-6 py-7"
-          >
-            <div>
-              <Input
-                label="Phone No."
-                type="number"
-                name="phone_number"
-                value={values.phone_number}
-                onChange={handleChange}
-                onFocus={() => setFieldTouched("phone_number", true)}
-                placeholder="Type your phone number"
-                className={
-                  touched.phone_number && errors.phone_number
-                    ? "border-error"
-                    : ""
-                }
-              />
-              {touched.phone_number && errors.phone_number && (
-                <p className="mt-1 text-sm text-error">{errors.phone_number}</p>
-              )}
-            </div>
-            <div>
-              <Input
-                label="Address"
-                type="text"
-                name="address"
-                value={values.address}
-                onChange={handleChange}
-                onFocus={() => setFieldTouched("address", true)}
-                placeholder="Type your address"
-                className={
-                  touched.address && errors.address ? "border-error" : ""
-                }
-              />
-              {touched.address && errors.address && (
-                <p className="mt-1 text-sm text-error">{errors.address}</p>
-              )}
-            </div>
-            <div>
-              <Input
-                label="House No."
-                type="number"
-                name="house_number"
-                value={values.house_number}
-                onChange={handleChange}
-                onFocus={() => setFieldTouched("house_number", true)}
-                placeholder="Type your house number"
-                className={
-                  touched.house_number && errors.house_number
-                    ? "border-error"
-                    : ""
-                }
-              />
-              {touched.house_number && errors.house_number && (
-                <p className="mt-1 text-sm text-error">{errors.house_number}</p>
-              )}
-            </div>
-            <div>
-              <Select
-                label="City"
-                name="city"
-                onChange={handleChange}
-                onFocus={() => setFieldTouched("city", true)}
-                className={touched.city && errors.city ? "border-error" : ""}
-              >
-                <option value="">Select your city</option>
-                <option value="Jakarta">Jakarta</option>
-                <option value="Bandung">Bandung</option>
-              </Select>
-              {touched.city && errors.city && (
-                <p className="mt-1 text-sm text-error">{errors.city}</p>
-              )}
-            </div>
-            <Button
-              type="submit"
-              color="primary"
-              className="mt-2"
-              disabled={loading}
-              loading={loading}
+        {successSignup ? (
+          <SuccessSignUp />
+        ) : (
+          <div className="max-h-screen overflow-hidden">
+            <Navigation
+              isBack={true}
+              title="Address"
+              description="Make sure it's valid"
+              handleBack={() => navigation("/register")}
+            />
+            <form
+              autoComplete="off"
+              onSubmit={handleSubmit}
+              className="mt-5 flex min-h-screen flex-col gap-4 bg-white px-6 py-7"
             >
-              Sign Up Now
-            </Button>
-          </form>
-        </div>
+              <div>
+                <Input
+                  label="Phone No."
+                  type="number"
+                  name="phone_number"
+                  value={values.phone_number}
+                  onChange={handleChange}
+                  onFocus={() => setFieldTouched("phone_number", true)}
+                  placeholder="Type your phone number"
+                  className={
+                    touched.phone_number && errors.phone_number
+                      ? "border-error"
+                      : ""
+                  }
+                />
+                {touched.phone_number && errors.phone_number && (
+                  <p className="mt-1 text-sm text-error">
+                    {errors.phone_number}
+                  </p>
+                )}
+              </div>
+              <div>
+                <Input
+                  label="Address"
+                  type="text"
+                  name="address"
+                  value={values.address}
+                  onChange={handleChange}
+                  onFocus={() => setFieldTouched("address", true)}
+                  placeholder="Type your address"
+                  className={
+                    touched.address && errors.address ? "border-error" : ""
+                  }
+                />
+                {touched.address && errors.address && (
+                  <p className="mt-1 text-sm text-error">{errors.address}</p>
+                )}
+              </div>
+              <div>
+                <Input
+                  label="House No."
+                  type="number"
+                  name="house_number"
+                  value={values.house_number}
+                  onChange={handleChange}
+                  onFocus={() => setFieldTouched("house_number", true)}
+                  placeholder="Type your house number"
+                  className={
+                    touched.house_number && errors.house_number
+                      ? "border-error"
+                      : ""
+                  }
+                />
+                {touched.house_number && errors.house_number && (
+                  <p className="mt-1 text-sm text-error">
+                    {errors.house_number}
+                  </p>
+                )}
+              </div>
+              <div>
+                <Select
+                  label="City"
+                  name="city"
+                  onChange={handleChange}
+                  onFocus={() => setFieldTouched("city", true)}
+                  className={touched.city && errors.city ? "border-error" : ""}
+                >
+                  <option value="">Select your city</option>
+                  <option value="Jakarta">Jakarta</option>
+                  <option value="Bandung">Bandung</option>
+                </Select>
+                {touched.city && errors.city && (
+                  <p className="mt-1 text-sm text-error">{errors.city}</p>
+                )}
+              </div>
+              <Button
+                type="submit"
+                color="primary"
+                className="mt-2"
+                disabled={loading}
+                loading={loading}
+              >
+                Sign Up Now
+              </Button>
+            </form>
+          </div>
+        )}
       </Container>
     </Page>
   );
