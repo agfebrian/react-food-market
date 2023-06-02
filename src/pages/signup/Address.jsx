@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import http from "../../app/http";
 import { useNavigate } from "react-router-dom";
 import { setAlert } from "../../slices/alertSlice";
+import { setToken } from "../../utils/storage";
 
 export const Address = () => {
   const signup = useSelector((state) => state.signup);
@@ -23,18 +24,18 @@ export const Address = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      phoneNumber: "",
+      phone_number: "",
       address: "",
-      houseNumber: "",
+      house_number: "",
       city: "",
     },
     validationSchema: Yup.object({
-      phoneNumber: Yup.string()
+      phone_number: Yup.string()
         .min(11, "Phone minimal 11 number")
         .max(13, "Phone maximal 13 number")
         .required("Phone is required"),
       address: Yup.string().required("Address is required"),
-      houseNumber: Yup.string().required("House number is required"),
+      house_number: Yup.string().required("House number is required"),
       city: Yup.string().required("City is required"),
     }),
     onSubmit: async (values) => {
@@ -43,16 +44,16 @@ export const Address = () => {
       const payload = {
         ...signup,
         ...values,
-        ...{ password_confirmation: signup.password },
+        ...{ phone_number: values.phone_number.toString() },
+        ...{ house_number: values.house_number.toString() },
       };
       http
-        .post("/register", payload)
+        .post("/auth/register", payload)
         .then((res) => {
           const {
             status,
             data: { data },
           } = res;
-          console.log(data);
           if (status === 200) {
             dispatch(
               setAlert({
@@ -61,6 +62,7 @@ export const Address = () => {
                 type: "success",
               })
             );
+            setToken(data.token);
           }
         })
         .catch((err) => {
@@ -100,19 +102,19 @@ export const Address = () => {
               <Input
                 label="Phone No."
                 type="number"
-                name="phoneNumber"
-                value={values.phoneNumber}
+                name="phone_number"
+                value={values.phone_number}
                 onChange={handleChange}
-                onFocus={() => setFieldTouched("phoneNumber", true)}
+                onFocus={() => setFieldTouched("phone_number", true)}
                 placeholder="Type your phone number"
                 className={
-                  touched.phoneNumber && errors.phoneNumber
+                  touched.phone_number && errors.phone_number
                     ? "border-error"
                     : ""
                 }
               />
-              {touched.phoneNumber && errors.phoneNumber && (
-                <p className="mt-1 text-sm text-error">{errors.phoneNumber}</p>
+              {touched.phone_number && errors.phone_number && (
+                <p className="mt-1 text-sm text-error">{errors.phone_number}</p>
               )}
             </div>
             <div>
@@ -136,19 +138,19 @@ export const Address = () => {
               <Input
                 label="House No."
                 type="number"
-                name="houseNumber"
-                value={values.houseNumber}
+                name="house_number"
+                value={values.house_number}
                 onChange={handleChange}
-                onFocus={() => setFieldTouched("houseNumber", true)}
+                onFocus={() => setFieldTouched("house_number", true)}
                 placeholder="Type your house number"
                 className={
-                  touched.houseNumber && errors.houseNumber
+                  touched.house_number && errors.house_number
                     ? "border-error"
                     : ""
                 }
               />
-              {touched.houseNumber && errors.houseNumber && (
-                <p className="mt-1 text-sm text-error">{errors.houseNumber}</p>
+              {touched.house_number && errors.house_number && (
+                <p className="mt-1 text-sm text-error">{errors.house_number}</p>
               )}
             </div>
             <div>
