@@ -8,3 +8,4 @@ export * from "./tab/Tab";
 export * from "./tab/ItemTab";
 export * from "./card";
 export * from "./alert/Alert";
+export * from "./skeleton";
