@@ -1,5 +1,5 @@
 import React from "react";
-import { CardProductFlex } from "../../../components/ui";
+import { CardProductFlex, Rating } from "../../../components/ui";
 import { formatCurrency } from "../../../utils/numbers";
 
 export const ProductRecommended = ({ products }) => {
@@ -11,7 +11,14 @@ export const ProductRecommended = ({ products }) => {
           image={product.image}
           title={product.name}
           subtitle={`IDR ${formatCurrency(product.price)}`}
-        />
+        >
+          <div className="flex items-center">
+            <Rating rate={product.rating} />
+            <span className="ml-1 text-sm font-normal text-brand-secondary">
+              {product.rating}
+            </span>
+          </div>
+        </CardProductFlex>
       ))}
     </div>
   );
