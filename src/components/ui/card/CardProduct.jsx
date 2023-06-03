@@ -8,7 +8,7 @@ export const CardProduct = ({ image, title, rating }) => {
       <div className="p-3">
         <h3 className="text-base font-normal text-black">{title}</h3>
         <div className="mt-1 flex gap-1">
-          <Rating />
+          <Rating rate={rating} />
           <p className="text-xs font-normal text-brand-secondary">{rating}</p>
         </div>
       </div>
