@@ -11,6 +11,7 @@ import {
 } from "../../components/ui";
 import { ProductPopular, ProductRecommended, ProductTaste } from "./components";
 import { fetchAllFoods } from "../../services/home";
+import { NavLink } from "react-router-dom";
 
 import ImageUser from "../../assets/images/pic-user.png";
 
@@ -105,12 +106,13 @@ export const Home = () => {
           {loadingFoodSuggest
             ? [1, 2, 3, 4].map((item) => <CardSkeleton key={item} />)
             : suggestFoods.map((item, index) => (
-                <CardProduct
-                  key={index}
-                  title={item.name}
-                  image={item.image}
-                  rating={item.rating}
-                />
+                <NavLink key={index} to={`/detail/${item.id}`}>
+                  <CardProduct
+                    title={item.name}
+                    image={item.image}
+                    rating={item.rating}
+                  />
+                </NavLink>
               ))}
         </div>
         <Tab
