@@ -1,6 +1,6 @@
 import React from "react";
 
-export const CardProductFlex = ({ image, title, subtitle }) => {
+export const CardProductFlex = ({ image, title, subtitle, children }) => {
   return (
     <div className="flex items-center">
       <img
@@ -12,7 +12,7 @@ export const CardProductFlex = ({ image, title, subtitle }) => {
         <p className="text-base font-normal text-black">{title}</p>
         <p className="text-sm font-normal text-brand-secondary">{subtitle}</p>
       </div>
-      <div className="ml-auto flex flex-col justify-center"></div>
+      <div className="ml-auto flex flex-col justify-center">{children}</div>
     </div>
   );
 };
