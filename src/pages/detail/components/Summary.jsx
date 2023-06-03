@@ -3,7 +3,7 @@ import { Footer, Container } from "../../../components/layout";
 import { Button } from "../../../components/ui";
 import { formatCurrency } from "../../../utils/numbers";
 
-export const Summary = ({ total, handleClick }) => {
+export const Summary = ({ total, loading, handleClick }) => {
   return (
     <Footer className="z-20">
       <Container>
@@ -12,7 +12,11 @@ export const Summary = ({ total, handleClick }) => {
             <p className="text-sm font-normal text-brand-secondary">
               Total Price:
             </p>
-            <p className="text-lg font-normal">IDR {formatCurrency(total)}</p>
+            {!loading ? (
+              <p className="text-lg font-normal">IDR {formatCurrency(total)}</p>
+            ) : (
+              <div className="mt-2 h-3 w-56 animate-bounce rounded-lg bg-brand-grey-1"></div>
+            )}
           </div>
           <Button className="w-40" handleClick={handleClick}>
             Order Now

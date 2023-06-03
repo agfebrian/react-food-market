@@ -1,17 +1,13 @@
-import React, { useState } from "react";
-import clsx from "clsx";
+import React from "react";
 
 export const Hero = ({ image }) => {
-  const [loaded, setLoaded] = useState();
-  const loadImage = () => {
-    setLoaded(true);
-  };
-
   return (
-    <div
-      className={clsx(`${!loaded ? "blur-sm" : ""}`, "relative h-64 w-full")}
-    >
-      <img src={image} alt="food" loading="lazy" onLoad={loadImage} />
+    <div className="relative h-64 w-full">
+      {!image ? (
+        <div className="h-full w-full animate-pulse bg-brand-grey-1"></div>
+      ) : (
+        <img src={image} alt="food" width="100%" height="100%" loading="lazy" />
+      )}
     </div>
   );
 };

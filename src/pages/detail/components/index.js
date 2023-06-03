@@ -4,3 +4,4 @@ export * from "./Counter";
 export * from "./Description";
 export * from "./Ingredient";
 export * from "./Summary";
+export * from "./NavigateBack";
