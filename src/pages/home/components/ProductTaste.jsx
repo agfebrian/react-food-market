@@ -1,5 +1,6 @@
 import React from "react";
 import { CardProductFlex } from "../../../components/ui";
+import { formatCurrency } from "../../../utils/numbers";
 
 export const ProductTaste = ({ products }) => {
   return (
@@ -9,7 +10,7 @@ export const ProductTaste = ({ products }) => {
           key={i}
           image={product.image}
           title={product.name}
-          subtitle={product.price}
+          subtitle={`IDR ${formatCurrency(product.price)}`}
         />
       ))}
     </div>
