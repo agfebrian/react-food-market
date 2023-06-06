@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Protected } from "./components/layout/Protected";
 import { SignIn, SignUp, Address, Home, FoodDetail } from "./pages";
 import "./index.css";
 import store from "./app/store";
@@ -17,15 +18,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <SignIn />,
+    element: (
+      <Protected>
+        <SignIn />
+      </Protected>
+    ),
   },
   {
     path: "/register",
-    element: <SignUp />,
+    element: (
+      <Protected>
+        <SignUp />
+      </Protected>
+    ),
   },
   {
     path: "/register/address",
-    element: <Address />,
+    element: (
+      <Protected>
+        <Address />
+      </Protected>
+    ),
   },
 ]);
 
