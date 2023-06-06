@@ -41,7 +41,7 @@ export const SignIn = () => {
           data: { data },
         } = await http.post("/auth/login", values);
 
-        if (status) {
+        if (status === 200) {
           dispatch(
             setAlert({
               show: true,
