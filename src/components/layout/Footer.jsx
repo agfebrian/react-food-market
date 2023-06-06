@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 export const Footer = ({ className, children }) => {
   return (
-    <footer className={clsx(className, "absolute bottom-0 w-full")}>
+    <footer className={clsx(className, "fixed bottom-0 w-full")}>
       {children}
     </footer>
   );
