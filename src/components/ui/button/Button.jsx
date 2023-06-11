@@ -33,10 +33,8 @@ export const Button = ({
   };
 
   const style = clsx(
-    `${hovered(color)} rounded-lg border-none ${setColor(
-      color
-    )} p-3 text-base font-medium ${
-      disabled ? "bg-brand-grey-1 text-brand-secondary" : ""
+    `rounded-lg border-none ${setColor(color)} p-3 text-base font-medium ${
+      disabled ? "bg-brand-grey-1 text-brand-secondary" : `${hovered(color)}`
     }`,
     className
   );
