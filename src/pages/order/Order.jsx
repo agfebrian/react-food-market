@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Page, Container, EmptyOrder } from "../../components/layout";
+import { Page, Container } from "../../components/layout";
 import {
   Navigation,
   Tab,
   ItemTab,
   NavigationBottom,
   ProfileSkeleton,
-  CardSkeleton,
 } from "../../components/ui";
 import http from "../../app/http";
 import { ProductInProgress, ProductPastOrder } from "./components";
@@ -15,16 +14,22 @@ import { useDispatch } from "react-redux";
 
 export const Order = () => {
   const [orders, setOrders] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [isLoadedInProgress, setIsLoadedInProgress] = useState(true);
+  const [isLoadedPastOrder, setIsLoadedPastOrder] = useState(true);
   const [isError, setIsError] = useState(false);
   const hasFetchedData = useRef(false);
   const dispatch = useDispatch();
 
-  const fetchOrders = async () => {
+  const fetchOrders = async (type) => {
+    setIsLoadedInProgress(true);
+    setIsLoadedPastOrder(true);
     try {
       const {
+        data: { data: profile },
+      } = await http.get("/auth/profile");
+      const {
         data: { status, data },
-      } = await http.get(`/order?userId=&status=1,2,3`);
+      } = await http.get(`/order?userId=${profile.id}&status=${type}`);
       setOrders(data);
     } catch (error) {
       setIsError(true);
@@ -36,80 +41,62 @@ export const Order = () => {
         })
       );
     } finally {
-      setIsLoaded(false);
+      setIsLoadedInProgress(false);
+      setIsLoadedPastOrder(false);
     }
   };
 
   useEffect(() => {
     if (!hasFetchedData.current) {
-      fetchOrders();
+      fetchOrders(tabs[0].value);
       hasFetchedData.current = true;
     }
   }, []);
 
   const [selectedTab, setSelectedTab] = useState(0);
-  const tabs = ["In Progress", "Past Orders"];
+  const tabs = [
+    { value: "1,2,3", text: "In Progress" },
+    { value: "4,5", text: "Past Orders" },
+  ];
   const changeTab = (index) => {
     setSelectedTab(index);
-    const category = findCurrentActiveTab(index);
-  };
-
-  const findCurrentActiveTab = (index) => {
-    let result;
-    switch (index) {
-      case 0:
-        result = "1,2,3";
-        break;
-      case 1:
-        result = "4,4";
-        break;
-    }
-    return result;
+    fetchOrders(tabs[index].value);
   };
 
   return (
     <Page>
       <Container>
-        {!isLoaded && !isError && !orders.length ? (
-          <EmptyOrder />
-        ) : (
-          <>
-            <Navigation
-              title="Your Orders"
-              description="Wait for the best meal"
-            />
-            <Tab
-              className="mb-[60px] mt-6 min-h-screen"
-              items={tabs}
-              activeTab={selectedTab}
-              handleChange={changeTab}
-            >
-              <ItemTab
-                activeTab={selectedTab}
-                indexTab={0}
-                handleClick={() => setSelectedTab(0)}
-              >
-                {isLoaded ? (
-                  [1, 2, 3, 4].map((item) => <ProfileSkeleton key={item} />)
-                ) : (
-                  <ProductInProgress products={orders} />
-                )}
-              </ItemTab>
-              <ItemTab
-                activeTab={selectedTab}
-                indexTab={1}
-                handleClick={() => setSelectedTab(1)}
-              >
-                {isLoaded ? (
-                  [1, 2, 3, 4].map((item) => <CardSkeleton key={item} />)
-                ) : (
-                  <ProductPastOrder products={orders} />
-                )}
-              </ItemTab>
-            </Tab>
-            <NavigationBottom />
-          </>
-        )}
+        <Navigation title="Your Orders" description="Wait for the best meal" />
+        <Tab
+          className="mb-[60px] mt-6 min-h-screen"
+          items={tabs.map((item) => item.text)}
+          activeTab={selectedTab}
+          handleChange={changeTab}
+        >
+          <ItemTab
+            activeTab={selectedTab}
+            indexTab={0}
+            handleClick={() => setSelectedTab(0)}
+          >
+            {isLoadedInProgress ? (
+              [1, 2, 3, 4].map((item) => <ProfileSkeleton key={item} />)
+            ) : (
+              <ProductInProgress products={orders} />
+            )}
+          </ItemTab>
+          <ItemTab
+            activeTab={selectedTab}
+            indexTab={1}
+            handleClick={() => setSelectedTab(1)}
+          >
+            {isLoadedPastOrder ? (
+              [1, 2, 3, 4].map((item) => <ProfileSkeleton key={item} />)
+            ) : (
+              <ProductPastOrder products={orders} />
+            )}
+          </ItemTab>
+        </Tab>
+        <NavigationBottom />
       </Container>
     </Page>
   );
