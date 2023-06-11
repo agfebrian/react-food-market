@@ -11,13 +11,24 @@ import {
 } from "./components";
 import { fetchFood } from "../../services/home";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setPayment } from "../../slices/paymentSlice";
+import { useNavigate } from "react-router-dom";
 
 export const FoodDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const checkout = () => {
-    console.log("total ", total, quantity);
+    dispatch(
+      setPayment({
+        food: food,
+        quantity: quantity,
+      })
+    );
+    navigate("/payment");
   };
 
   const params = useParams();

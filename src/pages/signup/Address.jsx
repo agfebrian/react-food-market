@@ -9,6 +9,7 @@ import http from "../../app/http";
 import { useNavigate } from "react-router-dom";
 import { setAlert } from "../../slices/alertSlice";
 import { setToken } from "../../utils/storage";
+import { setProfile } from "../../slices/profileSlice";
 
 export const Address = () => {
   const signup = useSelector((state) => state.signup);
@@ -54,12 +55,23 @@ export const Address = () => {
             status,
             data: { data },
           } = res;
+
           if (status === 200) {
             dispatch(
               setAlert({
                 show: true,
                 message: "Success user register",
                 type: "success",
+              })
+            );
+            dispatch(
+              setProfile({
+                name: data.name,
+                email: data.email,
+                city: data.city,
+                address: data.address,
+                phoneNumber: data.phoneNumber,
+                houseNumber: data.houseNumber,
               })
             );
             setToken(data.token);

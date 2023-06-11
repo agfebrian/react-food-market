@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import http from "../../app/http";
+import { setProfile } from "../../slices/profileSlice";
+import { setToken } from "../../utils/storage";
 
 export const SignIn = () => {
   const dispatch = useDispatch();
@@ -37,8 +39,8 @@ export const SignIn = () => {
         const {
           status,
           data: { data },
-        } = await http.post("/login", values);
-        console.log(data);
+        } = await http.post("/auth/login", values);
+
         if (status === 200) {
           dispatch(
             setAlert({
@@ -47,7 +49,18 @@ export const SignIn = () => {
               type: "success",
             })
           );
-          navigate("/register/address");
+          dispatch(
+            setProfile({
+              name: data.name,
+              email: data.email,
+              city: data.city,
+              address: data.address,
+              phoneNumber: data.phoneNumber,
+              houseNumber: data.houseNumber,
+            })
+          );
+          setToken(data.token);
+          navigate("/");
         } else {
           dispatch(
             setAlert({
@@ -58,14 +71,7 @@ export const SignIn = () => {
           );
         }
       } catch (error) {
-        console.log(error);
-        const {
-          response: {
-            data: {
-              meta: { message },
-            },
-          },
-        } = error;
+        const { message } = error;
         dispatch(
           setAlert({
             show: true,

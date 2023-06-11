@@ -6,7 +6,13 @@ export const CardProduct = ({ id, image, title, rating }) => {
   return (
     <div className="min-w-52 h-[210px] flex-shrink-0 rounded-lg bg-white">
       <NavLink className="min-w-52 block" to={`/detail/${id}`}>
-        <img className="h-36 rounded-lg" src={image} />
+        <img
+          className="h-36 rounded-lg"
+          srcSet={`${image} 300w, ${image} 768w, ${image} 1280w,`}
+          sizes="300px, 768px, 1280px"
+          src={image}
+          alt={title}
+        />
       </NavLink>
       <div className="p-3">
         <NavLink className="min-w-52 block" to={`/detail/${id}`}>

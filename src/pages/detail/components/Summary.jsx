@@ -15,7 +15,7 @@ export const Summary = ({ total, loading, handleClick }) => {
             {!loading ? (
               <p className="text-lg font-normal">IDR {formatCurrency(total)}</p>
             ) : (
-              <div className="mt-2 h-3 w-56 animate-bounce rounded-lg bg-brand-grey-1"></div>
+              <div className="mt-2 h-3 w-28 animate-bounce rounded-lg bg-brand-grey-1"></div>
             )}
           </div>
           <Button className="w-40" handleClick={handleClick}>
