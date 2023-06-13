@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Page, Container } from "../../components/layout";
 import {
   CardProduct,
@@ -11,6 +11,11 @@ import {
 } from "../../components/ui";
 import { ProductPopular, ProductRecommended, ProductTaste } from "./components";
 import { fetchAllFoods } from "../../services/home";
+import { fetchProfile } from "../../services/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfile } from "../../slices/profileSlice";
+import { setAlert } from "../../slices/alertSlice";
+import useFetch from "../../hooks/useFetch";
 
 import ImageUser from "../../assets/images/pic-user.png";
 
@@ -68,14 +73,10 @@ export const Home = () => {
     }
   };
 
-  const hasFetchedData = useRef(false);
-  useEffect(() => {
-    if (hasFetchedData.current === false) {
-      fetchSuggestFoods();
-      fetchFoodsByCategory("new_food");
-      hasFetchedData.current = true;
-    }
-  }, []);
+  useFetch(() => {
+    fetchSuggestFoods();
+    fetchFoodsByCategory("new_food");
+  });
 
   const findCurrentActiveTab = (index) => {
     let result;
@@ -92,6 +93,42 @@ export const Home = () => {
     }
     return result;
   };
+
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.profile);
+  const fetchUserProfile = async () => {
+    try {
+      const {
+        data: { status, data },
+      } = await fetchProfile();
+      if (status) {
+        dispatch(
+          setProfile({
+            id: data.id,
+            name: data.name,
+            email: data.email,
+            city: data.city,
+            address: data.address,
+            phoneNumber: data.phone_number,
+            houseNumber: data.house_number,
+          })
+        );
+      }
+    } catch (error) {
+      dispatch(
+        setAlert({
+          show: true,
+          message: "Terjadi kesalahan server",
+          type: "error",
+        })
+      );
+    }
+  };
+  useFetch(() => {
+    if (!profile.name) {
+      fetchUserProfile();
+    }
+  });
 
   return (
     <Page>
