@@ -26,11 +26,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/payment",
-    element: <Payment />,
+    element: (
+      <Protected>
+        <Payment />
+      </Protected>
+    ),
   },
   {
     path: "/orders",
-    element: <Order />,
+    element: (
+      <Protected>
+        <Order />
+      </Protected>
+    ),
   },
   {
     path: "/login",
