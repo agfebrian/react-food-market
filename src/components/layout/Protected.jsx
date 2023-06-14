@@ -1,10 +1,11 @@
 import { useEffect } from "react";
+import { useLocalStorage } from "../../hooks";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export const Protected = () => {
+export const Protected = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const token = localStorage.getItem("token");
+  const [token, _setToken] = useLocalStorage("token", "");
 
   if (!token) {
     useEffect(() => {
@@ -25,4 +26,5 @@ export const Protected = () => {
       }
     });
   }
+  return children;
 };

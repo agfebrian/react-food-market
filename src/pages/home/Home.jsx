@@ -15,7 +15,7 @@ import { fetchProfile } from "../../services/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setProfile } from "../../slices/profileSlice";
 import { setAlert } from "../../slices/alertSlice";
-import useFetch from "../../hooks/useFetch";
+import { useFetch, useLocalStorage } from "../../hooks";
 
 import ImageUser from "../../assets/images/pic-user.png";
 
@@ -124,8 +124,10 @@ export const Home = () => {
       );
     }
   };
+
+  const [token, _setToken] = useLocalStorage("token", "");
   useFetch(() => {
-    if (!profile.name) {
+    if (!profile.name && token) {
       fetchUserProfile();
     }
   });
