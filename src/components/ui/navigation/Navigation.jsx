@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar } from "../avatar/Avatar";
-import IconArrowBack from "../../../assets/icons/arrow_back.svg";
+import IconArrowBack from "~/assets/icons/arrow_back.svg";
 
 export const Navigation = ({
   isBack,

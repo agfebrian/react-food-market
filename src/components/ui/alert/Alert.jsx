@@ -1,10 +1,10 @@
 import React from "react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { setAlert } from "../../../slices/alertSlice";
+import { setAlert } from "~/slices/alertSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-import Close from "../../../assets/icons/close-circle.svg";
+import Close from "~/assets/icons/close-circle.svg";
 
 export const Alert = () => {
   const dispatch = useDispatch();

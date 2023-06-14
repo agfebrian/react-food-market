@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "../utils/storage";
+import { getToken } from "~/utils/storage";
 
 const http = axios.create({
   baseURL: import.meta.env.VITE_APP_URL_API,

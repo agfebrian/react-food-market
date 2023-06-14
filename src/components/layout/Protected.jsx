@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocalStorage } from "../../hooks";
+import { useLocalStorage } from "~/hooks";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export const Protected = ({ children }) => {

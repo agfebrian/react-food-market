@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { CardProductFlex } from "../../../components/ui";
-import { formatCurrency } from "../../../utils/numbers";
+import { CardProductFlex } from "~/components/ui";
+import { formatCurrency } from "~/utils/numbers";
 
 export const ProductInProgress = ({ products }) => {
   return (

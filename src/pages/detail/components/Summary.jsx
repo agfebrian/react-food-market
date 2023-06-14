@@ -1,7 +1,7 @@
 import React from "react";
-import { Footer, Container } from "../../../components/layout";
-import { Button } from "../../../components/ui";
-import { formatCurrency } from "../../../utils/numbers";
+import { Footer, Container } from "~/components/layout";
+import { Button } from "~/components/ui";
+import { formatCurrency } from "~/utils/numbers";
 
 export const Summary = ({ total, loading, handleClick }) => {
   return (

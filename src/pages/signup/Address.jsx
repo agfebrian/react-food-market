@@ -1,15 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Page, Container, SuccessSignUp } from "../../components/layout";
-import { Navigation, Button, Input, Select } from "../../components/ui";
+import { Page, Container, SuccessSignUp } from "~/components/layout";
+import { Navigation, Button, Input, Select } from "~/components/ui";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import http from "../../app/http";
+import http from "~/app/http";
 import { useNavigate } from "react-router-dom";
-import { setAlert } from "../../slices/alertSlice";
-import { setToken } from "../../utils/storage";
-import { setProfile } from "../../slices/profileSlice";
+import { setAlert } from "~/slices/alertSlice";
+import { setToken } from "~/utils/storage";
+import { setProfile } from "~/slices/profileSlice";
 
 export const Address = () => {
   const signup = useSelector((state) => state.signup);

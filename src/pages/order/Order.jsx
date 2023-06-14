@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Page, Container } from "../../components/layout";
+import { Page, Container } from "~/components/layout";
 import {
   Navigation,
   Tab,
   ItemTab,
   NavigationBottom,
   ProfileSkeleton,
-} from "../../components/ui";
-import http from "../../app/http";
+} from "~/components/ui";
+import http from "~/app/http";
 import { ProductInProgress, ProductPastOrder } from "./components";
-import { setAlert } from "../../slices/alertSlice";
+import { setAlert } from "~/slices/alertSlice";
 import { useDispatch } from "react-redux";
 
 export const Order = () => {

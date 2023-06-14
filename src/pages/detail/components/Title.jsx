@@ -1,5 +1,5 @@
 import React from "react";
-import { Rating } from "../../../components/ui";
+import { Rating } from "~/components/ui";
 
 export const Title = ({ name, rating, loading }) => {
   return (

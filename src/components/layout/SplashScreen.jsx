@@ -1,5 +1,5 @@
 import React from "react";
-import IconShop from "../../assets/icons/shop.svg";
+import IconShop from "~/assets/icons/shop.svg";
 
 export const SplashScreen = () => {
   return (

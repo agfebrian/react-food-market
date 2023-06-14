@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Page, Container } from "../../components/layout";
+import { Page, Container } from "~/components/layout";
 import {
   CardProduct,
   Tab,
@@ -8,16 +8,16 @@ import {
   NavigationBottom,
   CardSkeleton,
   ProfileSkeleton,
-} from "../../components/ui";
+} from "~/components/ui";
 import { ProductPopular, ProductRecommended, ProductTaste } from "./components";
-import { fetchAllFoods } from "../../services/home";
-import { fetchProfile } from "../../services/auth";
+import { fetchAllFoods } from "~/services/home";
+import { fetchProfile } from "~/services/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { setProfile } from "../../slices/profileSlice";
-import { setAlert } from "../../slices/alertSlice";
-import { useFetch, useLocalStorage } from "../../hooks";
+import { setProfile } from "~/slices/profileSlice";
+import { setAlert } from "~/slices/alertSlice";
+import { useFetch, useLocalStorage } from "~/hooks";
 
-import ImageUser from "../../assets/images/pic-user.png";
+import ImageUser from "~/assets/images/pic-user.png";
 
 export const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);

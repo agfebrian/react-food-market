@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Page, Container } from "../../components/layout";
+import { Page, Container } from "~/components/layout";
 import {
   NavigateBack,
   Hero,
@@ -9,10 +9,10 @@ import {
   Ingredient,
   Summary,
 } from "./components";
-import { fetchFood } from "../../services/home";
+import { fetchFood } from "~/services/home";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setPayment } from "../../slices/paymentSlice";
+import { setPayment } from "~/slices/paymentSlice";
 import { useNavigate } from "react-router-dom";
 
 export const FoodDetail = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container } from "../../../components/layout";
+import { Container } from "~/components/layout";
 
 export const NavigateBack = () => {
   const navigate = useNavigate();

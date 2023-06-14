@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../ui";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Hero from "../../assets/images/hero-burger.png";
+import Hero from "~/assets/images/hero-burger.png";
 
 export const EmptyOrder = () => {
   const navigation = useNavigate();

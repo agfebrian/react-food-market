@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Page, Container } from "../../components/layout";
-import { Input, Button, Navigation } from "../../components/ui";
-import { setAlert } from "../../slices/alertSlice";
+import { Page, Container } from "~/components/layout";
+import { Input, Button, Navigation } from "~/components/ui";
+import { setAlert } from "~/slices/alertSlice";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import http from "../../app/http";
-import { setProfile } from "../../slices/profileSlice";
-import { setToken } from "../../utils/storage";
+import http from "~/app/http";
+import { setProfile } from "~/slices/profileSlice";
+import { setToken } from "~/utils/storage";
 
 export const SignIn = () => {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../ui";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Hero from "../../assets/images/hero-success-signup.png";
+import Hero from "~/assets/images/hero-success-signup.png";
 
 export const SuccessSignUp = () => {
   const navigation = useNavigate();

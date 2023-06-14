@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { CardProductFlex } from "../../../components/ui";
-import { formatCurrency } from "../../../utils/numbers";
-import { dateToEpoch, epochToDate } from "../../../utils/date";
+import { CardProductFlex } from "~/components/ui";
+import { formatCurrency } from "~/utils/numbers";
+import { dateToEpoch, epochToDate } from "~/utils/date";
 import format from "date-fns/format";
 
 export const ProductPastOrder = ({ products }) => {

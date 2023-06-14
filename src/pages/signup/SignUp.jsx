@@ -1,18 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Page, Container } from "../../components/layout";
+import { Page, Container } from "~/components/layout";
 import {
   Navigation,
   Button,
   Input,
   Avatar,
   BorderAvatar,
-} from "../../components/ui";
+} from "~/components/ui";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSignup } from "../../slices/signupSlice";
+import { setSignup } from "~/slices/signupSlice";
 
 export const SignUp = () => {
   const navigate = useNavigate();

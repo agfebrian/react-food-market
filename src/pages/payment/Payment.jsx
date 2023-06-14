@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Page, Container, Footer } from "../../components/layout";
-import { Navigation, CardProductFlex, Button } from "../../components/ui";
+import { Page, Container, Footer } from "~/components/layout";
+import { Navigation, CardProductFlex, Button } from "~/components/ui";
 import { useDispatch, useSelector } from "react-redux";
-import { formatCurrency } from "../../utils/numbers";
-import { setAlert } from "../../slices/alertSlice";
-import http from "../../app/http";
+import { formatCurrency } from "~/utils/numbers";
+import { setAlert } from "~/slices/alertSlice";
+import http from "~/app/http";
 
 export const Payment = () => {
   const dispatch = useDispatch();
