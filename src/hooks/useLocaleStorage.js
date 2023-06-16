@@ -6,7 +6,7 @@ const getSavedLocaleStorage = (key, initialValue) => {
   return initialValue;
 };
 
-export const useLocalStorage = (key, initialValue) => {
+export const useLocalStorage = (key, initialValue = "") => {
   const [value, setValue] = useState(() =>
     getSavedLocaleStorage(key, initialValue)
   );

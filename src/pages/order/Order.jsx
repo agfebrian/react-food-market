@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Page, Container } from "~/components/layout";
 import {
   Navigation,
@@ -7,29 +7,55 @@ import {
   NavigationBottom,
   ProfileSkeleton,
 } from "~/components/ui";
-import http from "~/app/http";
-import { ProductInProgress, ProductPastOrder } from "./components";
+import { ProductInProgress, ProductPastOrder, EmptyOrder } from "./components";
 import { setAlert } from "~/slices/alertSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useFetch } from "~/hooks";
+import { useLocalStorage } from "~/hooks";
+import { setProfile } from "~/slices/profileSlice";
+import { fetchOrders } from "~/services/order";
+import { fetchProfile } from "~/services/auth";
 
 export const Order = () => {
   const [orders, setOrders] = useState([]);
   const [isLoadedInProgress, setIsLoadedInProgress] = useState(true);
   const [isLoadedPastOrder, setIsLoadedPastOrder] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const hasFetchedData = useRef(false);
+  const [_isError, setIsError] = useState(false);
+  const [token, _setToken] = useLocalStorage("token");
   const dispatch = useDispatch();
+  const profile = useSelector((state) => state.profile);
 
-  const fetchOrders = async (type) => {
+  const fetchUserProfile = async () => {
+    const {
+      data: { data },
+    } = await fetchProfile();
+    dispatch(
+      setProfile({
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        city: data.city,
+        address: data.address,
+        phoneNumber: data.phone_number,
+        houseNumber: data.house_number,
+      })
+    );
+    return data;
+  };
+
+  const fetchMyOrders = async (type) => {
     setIsLoadedInProgress(true);
     setIsLoadedPastOrder(true);
     try {
+      let resUser;
+      if (!profile.id) {
+        resUser = await fetchUserProfile();
+      }
+
+      const profileId = profile.id || resUser.id;
       const {
-        data: { data: profile },
-      } = await http.get("/auth/profile");
-      const {
-        data: { status, data },
-      } = await http.get(`/order?userId=${profile.id}&status=${type}`);
+        data: { data },
+      } = await fetchOrders(profileId, type);
       setOrders(data);
     } catch (error) {
       setIsError(true);
@@ -46,12 +72,11 @@ export const Order = () => {
     }
   };
 
-  useEffect(() => {
-    if (!hasFetchedData.current) {
-      fetchOrders(tabs[0].value);
-      hasFetchedData.current = true;
+  useFetch(() => {
+    if (token) {
+      fetchMyOrders(tabs[0].value);
     }
-  }, []);
+  });
 
   const [selectedTab, setSelectedTab] = useState(0);
   const tabs = [
@@ -60,7 +85,7 @@ export const Order = () => {
   ];
   const changeTab = (index) => {
     setSelectedTab(index);
-    fetchOrders(tabs[index].value);
+    fetchMyOrders(tabs[index].value);
   };
 
   return (
@@ -80,8 +105,10 @@ export const Order = () => {
           >
             {isLoadedInProgress ? (
               [1, 2, 3, 4].map((item) => <ProfileSkeleton key={item} />)
-            ) : (
+            ) : orders.length ? (
               <ProductInProgress products={orders} />
+            ) : (
+              <EmptyOrder />
             )}
           </ItemTab>
           <ItemTab
@@ -91,8 +118,10 @@ export const Order = () => {
           >
             {isLoadedPastOrder ? (
               [1, 2, 3, 4].map((item) => <ProfileSkeleton key={item} />)
-            ) : (
+            ) : orders.length ? (
               <ProductPastOrder products={orders} />
+            ) : (
+              <EmptyOrder />
             )}
           </ItemTab>
         </Tab>
