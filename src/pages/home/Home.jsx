@@ -138,7 +138,7 @@ export const Home = () => {
           description="Let's get some foods"
           avatar={ImageUser}
         />
-        <div className="flex gap-6 overflow-x-auto pb-6 pl-6 pt-6">
+        <div className="flex gap-6 overflow-x-auto px-6 pb-6 pt-6">
           {loadingFoodSuggest
             ? [1, 2, 3, 4].map((item) => <CardSkeleton key={item} />)
             : suggestFoods.map((item, index) => (

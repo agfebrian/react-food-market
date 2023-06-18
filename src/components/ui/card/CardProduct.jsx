@@ -10,6 +10,8 @@ export const CardProduct = ({ id, image, title, rating }) => {
           className="h-36 rounded-lg"
           srcSet={`${image} 300w, ${image} 768w, ${image} 1280w,`}
           sizes="300px, 768px, 1280px"
+          width={208}
+          height={144}
           src={image}
           alt={title}
         />
