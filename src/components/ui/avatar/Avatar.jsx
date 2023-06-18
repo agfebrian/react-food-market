@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
+import { Navigation, Button } from "..";
+import { updatePhoto } from "~/services/auth";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAlert } from "~/slices/alertSlice";
 
-export const Avatar = ({ size, rounded, photo, className }) => {
+export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
+  const [image, setImage] = useState(photo);
+  const [previewImage, setPreviewImage] = useState("");
+
   const showSize = (size) => {
     switch (size) {
       case "lg":
@@ -28,13 +36,101 @@ export const Avatar = ({ size, rounded, photo, className }) => {
     className
   );
 
+  const handleChange = (event) => {
+    const preview = URL.createObjectURL(event.target.files[0]);
+    setImage(event.target.files[0]);
+    setPreviewImage(preview);
+  };
+
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  const updateProfilePhoto = async () => {
+    if (location.pathname == "/account") {
+      setLoading(true);
+      try {
+        const formData = new FormData();
+        formData.append("avatar", image);
+        const {
+          data: { status, data, message },
+        } = await updatePhoto(formData);
+
+        if (status) {
+          setImage(previewImage);
+          setPreviewImage("");
+          dispatch(
+            setAlert({
+              show: true,
+              message: message,
+              type: "success",
+            })
+          );
+        } else {
+          dispatch(
+            setAlert({
+              show: true,
+              message: message,
+              type: "error",
+            })
+          );
+        }
+      } catch (error) {
+        dispatch(
+          setAlert({
+            show: true,
+            message: "Terjadi kesalahan server",
+            type: "error",
+          })
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  if (previewImage) {
+    return (
+      <div className="absolute left-0 top-0 z-20 flex min-h-screen w-full flex-col bg-brand-grey">
+        <Navigation
+          title="Preview Avatar"
+          description="Selection your avatar"
+          isBack={true}
+          handleBack={() => setPreviewImage("")}
+        />
+        <div className="mt-[26px] flex flex-col gap-3 bg-white p-4">
+          <img src={previewImage} width="100%" height={300} alt="preview" />
+          <div className="flex gap-3">
+            <Button
+              color="secondary"
+              type="button"
+              className="w-full"
+              handleClick={() => setPreviewImage("")}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              className="w-full"
+              disabled={loading}
+              loading={loading}
+              handleClick={updateProfilePhoto}
+            >
+              Confirm
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <>
-      {photo ? (
+    <div className="relative">
+      {image ? (
         <img
-          src={photo}
+          src={image}
           className={clsx(showSize(size), showRounded(rounded), className)}
-          srcSet={`${photo} 300w`}
+          srcSet={`${image} 300w`}
           sizes="300px"
           loading="lazy"
         />
@@ -43,6 +139,20 @@ export const Avatar = ({ size, rounded, photo, className }) => {
           <p className="text-sm font-light text-brand-secondary">Add Photo</p>
         </div>
       )}
-    </>
+      {uploadPhoto && (
+        <input
+          type="file"
+          className={clsx(
+            showSize(size),
+            showRounded(rounded),
+            "absolute left-0 top-0 z-10 opacity-0"
+          )}
+          onChange={(event) => handleChange(event)}
+        />
+      )}
+      {/* {previewImage && (
+        
+      )} */}
+    </div>
   );
 };

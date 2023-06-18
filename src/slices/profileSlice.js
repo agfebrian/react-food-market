@@ -7,6 +7,7 @@ export const profileSlice = createSlice({
     name: "",
     email: "",
     address: "",
+    avatar: "",
     city: "",
     phoneNumber: "",
     houseNumber: "",
@@ -17,6 +18,7 @@ export const profileSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.address = action.payload.address;
+      state.avatar = action.payload.avatar;
       state.city = action.payload.city;
       state.phoneNumber = action.payload.phoneNumber;
       state.houseNumber = action.payload.houseNumber;

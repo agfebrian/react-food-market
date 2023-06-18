@@ -11,6 +11,7 @@ import {
   FoodDetail,
   Payment,
   Order,
+  Profile,
 } from "./pages";
 import "./index.css";
 import store from "./app/store";
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
     element: (
       <Protected>
         <Order />
+      </Protected>
+    ),
+  },
+  {
+    path: "/account",
+    element: (
+      <Protected>
+        <Profile />
       </Protected>
     ),
   },
