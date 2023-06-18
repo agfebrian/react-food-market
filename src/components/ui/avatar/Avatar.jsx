@@ -125,11 +125,11 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
   }
 
   return (
-    <div className="relative">
+    <div className={clsx(className, "relative")}>
       {image ? (
         <img
           src={image}
-          className={clsx(showSize(size), showRounded(rounded), className)}
+          className={clsx(showSize(size), showRounded(rounded))}
           srcSet={`${image} 300w`}
           sizes="300px"
           loading="lazy"
@@ -150,9 +150,6 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
           onChange={(event) => handleChange(event)}
         />
       )}
-      {/* {previewImage && (
-        
-      )} */}
     </div>
   );
 };
