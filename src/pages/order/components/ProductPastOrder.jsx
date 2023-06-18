@@ -4,8 +4,25 @@ import { CardProductFlex } from "~/components/ui";
 import { formatCurrency } from "~/utils/numbers";
 import { dateToEpoch, epochToDate } from "~/utils/date";
 import format from "date-fns/format";
+import clsx from "clsx";
 
 export const ProductPastOrder = ({ products }) => {
+  const textColor = (status) => {
+    let color = "text-black";
+    switch (status) {
+      case "CANCELED":
+        color = "text-red-500";
+        break;
+      case "DELIVERED":
+        color = "text-green-500";
+        break;
+      default:
+        color = "text-black";
+        break;
+    }
+    return color;
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {products.map((product, i) => (
@@ -23,7 +40,14 @@ export const ProductPastOrder = ({ products }) => {
                 "LLL d, hh:mm"
               )}
             </p>
-            <p className="text-right text-xs capitalize">{product.status}</p>
+            <p
+              className={clsx(
+                textColor(product.status),
+                "text-right text-xs capitalize"
+              )}
+            >
+              {product.status}
+            </p>
           </CardProductFlex>
         </NavLink>
       ))}
