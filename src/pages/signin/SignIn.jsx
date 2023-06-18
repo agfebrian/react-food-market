@@ -38,7 +38,7 @@ export const SignIn = () => {
       try {
         const {
           status,
-          data: { data },
+          data: { data, message },
         } = await http.post("/auth/login", values);
 
         if (status === 200) {
@@ -51,12 +51,13 @@ export const SignIn = () => {
           );
           dispatch(
             setProfile({
+              id: data.id,
               name: data.name,
               email: data.email,
               city: data.city,
               address: data.address,
-              phoneNumber: data.phoneNumber,
-              houseNumber: data.houseNumber,
+              phoneNumber: data.phone_number,
+              houseNumber: data.house_number,
             })
           );
           setToken(data.token);
@@ -65,13 +66,17 @@ export const SignIn = () => {
           dispatch(
             setAlert({
               show: true,
-              message: "Something went wrong",
+              message: message,
               type: "error",
             })
           );
         }
       } catch (error) {
-        const { message } = error;
+        const {
+          response: {
+            data: { message },
+          },
+        } = error;
         dispatch(
           setAlert({
             show: true,
