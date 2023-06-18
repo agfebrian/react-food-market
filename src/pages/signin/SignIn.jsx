@@ -128,7 +128,9 @@ export const SignIn = () => {
                   touched.password && errors.password ? "border-error" : ""
                 }
               />
-              <p className="mt-1 text-sm text-error">{errors.password}</p>
+              {touched.password && errors.password && (
+                <p className="mt-1 text-sm text-error">{errors.password}</p>
+              )}
             </div>
             <Button
               type="submit"
