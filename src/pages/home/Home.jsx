@@ -35,7 +35,6 @@ export const Home = () => {
 
   const fetchSuggestFoods = async () => {
     setLoadingFoodSuggest(true);
-    await new Promise((r) => setTimeout(r, 1000));
     try {
       const {
         data: { status, data },
@@ -55,7 +54,6 @@ export const Home = () => {
 
   const fetchFoodsByCategory = async (category) => {
     setLoadingFoodCategory(true);
-    await new Promise((r) => setTimeout(r, 1000));
     try {
       const {
         data: { status, data },
@@ -133,7 +131,7 @@ export const Home = () => {
   });
 
   return (
-    <Page>
+    <Page className="min-h-screen">
       <Container>
         <Navigation
           title="FoodMarket"
@@ -154,38 +152,26 @@ export const Home = () => {
               ))}
         </div>
         <Tab
-          className="mb-[60px]"
+          className="pb-[60px]"
           items={tabs}
           activeTab={selectedTab}
           handleChange={changeTab}
         >
-          <ItemTab
-            activeTab={selectedTab}
-            indexTab={0}
-            handleClick={() => setSelectedTab(0)}
-          >
+          <ItemTab indexTab={0} activeTab={selectedTab}>
             {loadingFoodCategory ? (
               [1, 2, 3, 4].map((item) => <ProfileSkeleton key={item} />)
             ) : (
               <ProductTaste products={categoryFoods} />
             )}
           </ItemTab>
-          <ItemTab
-            activeTab={selectedTab}
-            indexTab={1}
-            handleClick={() => setSelectedTab(1)}
-          >
+          <ItemTab indexTab={1} activeTab={selectedTab}>
             {loadingFoodCategory ? (
               [1, 2, 3, 4].map((item) => <ProfileSkeleton key={item} />)
             ) : (
               <ProductPopular products={categoryFoods} />
             )}
           </ItemTab>
-          <ItemTab
-            activeTab={selectedTab}
-            indexTab={2}
-            handleClick={() => setSelectedTab(2)}
-          >
+          <ItemTab indexTab={2} activeTab={selectedTab}>
             {loadingFoodCategory ? (
               [1, 2, 3, 4].map((item) => <ProfileSkeleton key={item} />)
             ) : (
