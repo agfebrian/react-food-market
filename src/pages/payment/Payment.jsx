@@ -115,11 +115,11 @@ export const Payment = () => {
           </div>
           <div className="mt-2 flex justify-between">
             <p className="text-sm text-brand-secondary">House No</p>
-            <p className="text-sm text-blue-400">{profile.houseNumber}</p>
+            <p className="text-sm text-black">{profile.houseNumber}</p>
           </div>
           <div className="mt-2 flex justify-between">
             <p className="text-sm text-brand-secondary">City</p>
-            <p className="text-sm text-blue-400">{profile.city}</p>
+            <p className="text-sm text-black">{profile.city}</p>
           </div>
         </div>
       </Container>
