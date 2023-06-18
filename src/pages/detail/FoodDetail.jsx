@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Page, Container } from "~/components/layout";
 import {
   NavigateBack,
@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setPayment } from "~/slices/paymentSlice";
 import { useNavigate } from "react-router-dom";
+import { useFetch } from "~/hooks";
 
 export const FoodDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -36,7 +37,6 @@ export const FoodDetail = () => {
   const [loading, setLoading] = useState(false);
   const getFood = async () => {
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
     try {
       const {
         data: { status, data, message },
@@ -54,13 +54,7 @@ export const FoodDetail = () => {
     }
   };
 
-  const hasFetchedData = useRef(false);
-  useEffect(() => {
-    if (!hasFetchedData.current) {
-      getFood();
-      hasFetchedData.current = true;
-    }
-  });
+  useFetch(() => getFood());
 
   return (
     <Page>

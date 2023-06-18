@@ -6,7 +6,13 @@ export const Hero = ({ image }) => {
       {!image ? (
         <div className="h-full w-full animate-pulse bg-brand-grey-1"></div>
       ) : (
-        <img src={image} alt="food" width="100%" height="100%" loading="lazy" />
+        <img
+          src={image}
+          alt="food"
+          width="100%"
+          height="256"
+          className="h-64 bg-cover object-center"
+        />
       )}
     </div>
   );
