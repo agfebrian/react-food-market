@@ -31,19 +31,19 @@ export const ProductPastOrder = ({ products }) => {
             image={product.food.image}
             title={product.food.name}
             subtitle={`${product.quantity} items - IDR ${formatCurrency(
-              product.total
+              product.total,
             )}`}
           >
             <p className="text-xs text-brand-secondary">
               {format(
                 epochToDate(dateToEpoch(product.updated_at)),
-                "LLL d, hh:mm"
+                "LLL d, hh:mm",
               )}
             </p>
             <p
               className={clsx(
                 textColor(product.status),
-                "text-right text-xs capitalize"
+                "text-right text-xs capitalize",
               )}
             >
               {product.status}

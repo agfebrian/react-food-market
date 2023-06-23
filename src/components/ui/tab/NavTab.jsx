@@ -17,7 +17,7 @@ export const NavTab = ({ activeTab, indexTab, text, handleChange }) => {
       <div
         className={clsx(
           "absolute -bottom-[2px] w-1/2 rounded-md p-[2px]",
-          colorBorderBottom
+          colorBorderBottom,
         )}
       ></div>
     </div>

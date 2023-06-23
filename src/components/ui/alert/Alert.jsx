@@ -25,7 +25,7 @@ export const Alert = () => {
         exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
         className={clsx(
           status,
-          "absolute left-0 top-0 z-50 flex w-full items-start justify-between p-4"
+          "absolute left-0 top-0 z-50 flex w-full items-start justify-between p-4",
         )}
       >
         <p className="flex-1 text-sm font-normal text-white">{message}</p>

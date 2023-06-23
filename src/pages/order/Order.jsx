@@ -38,7 +38,7 @@ export const Order = () => {
         address: data.address,
         phoneNumber: data.phone_number,
         houseNumber: data.house_number,
-      })
+      }),
     );
     return data;
   };
@@ -64,7 +64,7 @@ export const Order = () => {
           show: true,
           message: error.message,
           type: "error",
-        })
+        }),
       );
     } finally {
       setIsLoadedInProgress(false);

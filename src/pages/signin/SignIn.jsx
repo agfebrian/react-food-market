@@ -47,7 +47,7 @@ export const SignIn = () => {
               show: true,
               message: "Success signup",
               type: "success",
-            })
+            }),
           );
           dispatch(
             setProfile({
@@ -58,7 +58,7 @@ export const SignIn = () => {
               address: data.address,
               phoneNumber: data.phone_number,
               houseNumber: data.house_number,
-            })
+            }),
           );
           setToken(data.token);
           navigate("/");
@@ -68,7 +68,7 @@ export const SignIn = () => {
               show: true,
               message: message,
               type: "error",
-            })
+            }),
           );
         }
       } catch (error) {
@@ -82,7 +82,7 @@ export const SignIn = () => {
             show: true,
             message: message,
             type: "error",
-          })
+          }),
         );
       } finally {
         setLoading(false);

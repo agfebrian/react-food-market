@@ -14,7 +14,7 @@ http.interceptors.request.use(
     config.headers.Authorization = `Bearer ${getToken()}`;
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 export default http;

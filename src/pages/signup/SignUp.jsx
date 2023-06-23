@@ -46,7 +46,7 @@ export const SignUp = () => {
           name: values.name,
           email: values.email,
           password: values.password,
-        })
+        }),
       );
       navigate("/register/address");
       setLoading(false);

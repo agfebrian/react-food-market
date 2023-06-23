@@ -62,7 +62,7 @@ export const Address = () => {
                 show: true,
                 message: "Success user register",
                 type: "success",
-              })
+              }),
             );
             dispatch(
               setProfile({
@@ -72,7 +72,7 @@ export const Address = () => {
                 address: data.address,
                 phoneNumber: data.phoneNumber,
                 houseNumber: data.houseNumber,
-              })
+              }),
             );
             setToken(data.token);
             setTimeout(() => setSuccessSignup(true), 1000);
@@ -89,7 +89,7 @@ export const Address = () => {
               show: true,
               message: Object.values(errors)[0][0],
               type: "error",
-            })
+            }),
           );
         })
         .finally(() => setLoading(false));

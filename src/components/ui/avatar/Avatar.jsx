@@ -33,7 +33,7 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
     "flex items-center justify-center bg-brand-grey",
     showSize(size),
     showRounded(rounded),
-    className
+    className,
   );
 
   const handleChange = (event) => {
@@ -64,7 +64,7 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
               show: true,
               message: message,
               type: "success",
-            })
+            }),
           );
         } else {
           dispatch(
@@ -72,7 +72,7 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
               show: true,
               message: message,
               type: "error",
-            })
+            }),
           );
         }
       } catch (error) {
@@ -81,7 +81,7 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
             show: true,
             message: "Terjadi kesalahan server",
             type: "error",
-          })
+          }),
         );
       } finally {
         setLoading(false);
@@ -145,7 +145,7 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
           className={clsx(
             showSize(size),
             showRounded(rounded),
-            "absolute left-0 top-0 z-10 opacity-0"
+            "absolute left-0 top-0 z-10 opacity-0",
           )}
           onChange={(event) => handleChange(event)}
         />

@@ -25,7 +25,7 @@ export const BorderAvatar = ({ size, rounded, className, children }) => {
     showRounded(rounded),
     showSize(size),
     "flex items-center justify-center border-2 border-dashed border-brand-secondary",
-    className
+    className,
   );
 
   return <div className={style}>{children}</div>;

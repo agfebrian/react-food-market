@@ -27,7 +27,7 @@ export const FoodDetail = () => {
       setPayment({
         food: food,
         quantity: quantity,
-      })
+      }),
     );
     navigate("/payment");
   };

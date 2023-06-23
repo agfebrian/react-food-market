@@ -45,7 +45,7 @@ export const Payment = () => {
             status: true,
             message: message,
             type: "error",
-          })
+          }),
         );
       }
     } catch (error) {
@@ -54,7 +54,7 @@ export const Payment = () => {
           status: true,
           message: error.message,
           type: "error",
-        })
+        }),
       );
     } finally {
       setIsLoading(false);

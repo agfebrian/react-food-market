@@ -8,7 +8,7 @@ const getSavedLocaleStorage = (key, initialValue) => {
 
 export const useLocalStorage = (key, initialValue = "") => {
   const [value, setValue] = useState(() =>
-    getSavedLocaleStorage(key, initialValue)
+    getSavedLocaleStorage(key, initialValue),
   );
 
   useEffect(() => {

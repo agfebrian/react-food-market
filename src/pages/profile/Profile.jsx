@@ -67,7 +67,7 @@ export const Profile = () => {
             avatar: data.avatar,
             phoneNumber: data.phone_number,
             houseNumber: data.house_number,
-          })
+          }),
         );
       }
     } catch (error) {
@@ -76,7 +76,7 @@ export const Profile = () => {
           show: true,
           message: "Terjadi kesalahan server",
           type: "error",
-        })
+        }),
       );
     } finally {
       setLoading(false);
@@ -100,14 +100,14 @@ export const Profile = () => {
         avatar: "",
         phoneNumber: "",
         houseNumber: "",
-      })
+      }),
     );
     dispatch(
       setAlert({
         show: true,
         message: "Success sign out",
         type: "success",
-      })
+      }),
     );
     setLoadingSignout(false);
   };

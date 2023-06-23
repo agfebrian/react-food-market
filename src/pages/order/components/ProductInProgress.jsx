@@ -12,7 +12,7 @@ export const ProductInProgress = ({ products }) => {
             image={product.food.image}
             title={product.food.name}
             subtitle={`${product.quantity} items - IDR ${formatCurrency(
-              product.total
+              product.total,
             )}`}
           />
         </NavLink>

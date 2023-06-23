@@ -109,7 +109,7 @@ export const Home = () => {
             address: data.address,
             phoneNumber: data.phone_number,
             houseNumber: data.house_number,
-          })
+          }),
         );
       }
     } catch (error) {
@@ -118,7 +118,7 @@ export const Home = () => {
           show: true,
           message: "Terjadi kesalahan server",
           type: "error",
-        })
+        }),
       );
     }
   };

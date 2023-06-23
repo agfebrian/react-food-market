@@ -12,7 +12,7 @@ export const Input = ({ label, type, placeholder, className, ...rest }) => {
         placeholder={placeholder}
         className={clsx(
           className,
-          "rounded-lg border border-black px-3 py-2 outline-none focus:border-green-300"
+          "rounded-lg border border-black px-3 py-2 outline-none focus:border-green-300",
         )}
         {...rest}
       />
