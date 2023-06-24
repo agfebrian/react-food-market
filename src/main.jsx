@@ -10,6 +10,7 @@ import {
   Home,
   FoodDetail,
   Payment,
+  PaymentDetail,
   Order,
   Profile,
 } from "./pages";
@@ -38,6 +39,14 @@ const router = createBrowserRouter([
     element: (
       <Protected>
         <Order />
+      </Protected>
+    ),
+  },
+  {
+    path: "/order/:id",
+    element: (
+      <Protected>
+        <PaymentDetail />
       </Protected>
     ),
   },

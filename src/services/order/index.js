@@ -9,3 +9,8 @@ export const postOrders = async (payload) => {
   const data = await http.post("/order", payload);
   return data;
 };
+
+export const fetchDetailOrders = async (id) => {
+  const data = await http.get(`/order/${id}`);
+  return data;
+};
