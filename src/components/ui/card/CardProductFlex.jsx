@@ -5,7 +5,9 @@ export const CardProductFlex = ({ image, title, subtitle, children }) => {
     <div className="flex items-center">
       <img
         src={image}
-        className="h-[60px] w-[60px] rounded-lg"
+        className="h-[60px] w-[60px] rounded-lg bg-cover object-center"
+        width={60}
+        height={60}
         loading="lazy"
       />
       <div className="ml-3 flex flex-col justify-center">
