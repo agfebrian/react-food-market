@@ -7,20 +7,17 @@
     {
       "src": "/maskable/icon_x192.png",
       "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "maskable any"
+      "sizes": "192x192"
     },
     {
       "src": "/maskable/icon_x384.png",
       "type": "image/png",
-      "sizes": "384x384",
-      "purpose": "maskable any"
+      "sizes": "384x384"
     },
     {
       "src": "/maskable/icon_x512.png",
       "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable any"
+      "sizes": "512x512"
     }
   ],
   "theme_color": "#ffc700",
