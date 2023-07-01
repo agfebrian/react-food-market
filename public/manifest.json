@@ -2,22 +2,25 @@
   "name": "Food Market",
   "short_name": "Food Market",
   "description": "Just stay at home while we are preparing your best foods",
-  "start_url": "/?source=pwa",
+  "start_url": "/",
   "icons": [
     {
       "src": "/maskable/icon_x192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "/maskable/icon_x384.png",
       "type": "image/png",
-      "sizes": "384x384"
+      "sizes": "384x384",
+      "purpose": "any maskable"
     },
     {
       "src": "/maskable/icon_x512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "theme_color": "#ffc700",
