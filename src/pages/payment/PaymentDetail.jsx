@@ -48,22 +48,28 @@ export const PaymentDetail = () => {
 
         const {
           food: { name, image, price },
+          quantity,
+          link,
+          updated_at,
+          id,
         } = data;
-        const { driver, tax, grossTotal: result } = useCalculate(price);
-        setTotal(price);
+        const calculation = price * quantity;
+        const { driver, tax, grossTotal: result } = useCalculate(calculation);
+
+        setTotal(calculation);
         setDriver(driver);
         setTax(tax);
         setGrossTotal(result);
         setFood({
-          id: data.id,
+          id,
           name,
           image,
-          quantity: data.quantity,
+          quantity,
           status: data.status,
           total: data.total,
           price,
-          link: data.link,
-          date: data.updated_at,
+          link,
+          date: updated_at,
         });
       } else {
         dispatch(
