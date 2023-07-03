@@ -76,18 +76,26 @@ export const Address = () => {
             );
             setToken(data.token);
             setTimeout(() => setSuccessSignup(true), 1000);
+          } else {
+            dispatch(
+              setAlert({
+                show: true,
+                message: message,
+                type: "error",
+              }),
+            );
           }
         })
         .catch((err) => {
           const {
             response: {
-              data: { errors },
+              data: { message },
             },
           } = err;
           dispatch(
             setAlert({
               show: true,
-              message: Object.values(errors)[0][0],
+              message: message,
               type: "error",
             }),
           );
