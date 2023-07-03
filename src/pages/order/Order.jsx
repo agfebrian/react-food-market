@@ -93,7 +93,7 @@ export const Order = () => {
       <Container>
         <Navigation title="Your Orders" description="Wait for the best meal" />
         <Tab
-          className="mb-[60px] mt-6 min-h-screen"
+          className="mb-[60px] mt-6 min-h-[300px]"
           items={tabs.map((item) => item.text)}
           activeTab={selectedTab}
           handleChange={changeTab}
