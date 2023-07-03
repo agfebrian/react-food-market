@@ -62,6 +62,7 @@ export const PaymentDetail = () => {
           status: data.status,
           total: data.total,
           price,
+          link: data.link,
           date: data.updated_at,
         });
       } else {
@@ -113,7 +114,9 @@ export const PaymentDetail = () => {
         )}
         {isLoading ? <SkeletonDetail /> : <SectionDeliver profile={profile} />}
         {isLoading ? (
-          <SkeletonFlex />
+          <div className="px-6">
+            <SkeletonFlex />
+          </div>
         ) : (
           <SectionOrderStatus food={food} isLoading={isLoading} />
         )}
