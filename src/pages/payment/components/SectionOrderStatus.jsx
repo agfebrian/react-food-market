@@ -1,12 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "~/components/ui";
 import { useColorStatusOrder } from "~/hooks";
 import { NavLink } from "react-router-dom";
+import { cancelOrders } from "~/services/order";
+import { useDispatch } from "react-redux";
+import { setAlert } from "~/slices/alertSlice";
 
-export const SectionOrderStatus = ({ food, isLoading }) => {
+export const SectionOrderStatus = ({
+  food,
+  isLoading,
+  handleAfterCanceled,
+}) => {
+  const [isLoadingCancel, setIsLoadingCancel] = useState(false);
+  const dispatch = useDispatch();
+
   const pay = () => {
     window.location.href =
       "https://simulator.sandbox.midtrans.com/bca/va/index";
+  };
+
+  const cancelOrder = async () => {
+    setIsLoadingCancel(true);
+    try {
+      const {
+        data: { status, message },
+      } = await cancelOrders(food.id);
+
+      if (status) {
+        dispatch(
+          setAlert({
+            show: true,
+            message,
+            type: "success",
+          }),
+        );
+        handleAfterCanceled();
+      } else {
+        dispatch(
+          setAlert({
+            show: true,
+            message,
+            type: "error",
+          }),
+        );
+      }
+    } catch (error) {
+      dispatch(
+        setAlert({
+          show: true,
+          message: error.message,
+          type: "error",
+        }),
+      );
+    } finally {
+      setIsLoadingCancel(false);
+    }
   };
 
   return (
@@ -26,8 +74,14 @@ export const SectionOrderStatus = ({ food, isLoading }) => {
       </div>
       {!isLoading && food.status === "PENDING" && (
         <div className="mt-3 flex justify-between gap-3">
-          <Button className="w-full" color="secondary">
-            Cancel My Order
+          <Button
+            className="w-full"
+            color="secondary"
+            handleClick={cancelOrder}
+            loading={isLoadingCancel}
+            disabled={isLoadingCancel}
+          >
+            Cancel
           </Button>
           <Button className="w-full" handleClick={pay}>
             Pay

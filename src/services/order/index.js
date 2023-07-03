@@ -14,3 +14,8 @@ export const fetchDetailOrders = async (id) => {
   const data = await http.get(`/order/${id}`);
   return data;
 };
+
+export const cancelOrders = async (id) => {
+  const data = await http.post(`/order/${id}/cancel`);
+  return data;
+};

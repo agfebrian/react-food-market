@@ -118,7 +118,11 @@ export const PaymentDetail = () => {
             <SkeletonFlex />
           </div>
         ) : (
-          <SectionOrderStatus food={food} isLoading={isLoading} />
+          <SectionOrderStatus
+            food={food}
+            isLoading={isLoading}
+            handleAfterCanceled={fetchDetailOrder}
+          />
         )}
       </Container>
     </Page>
