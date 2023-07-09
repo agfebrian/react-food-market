@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { Navigation, Button } from "..";
 import { updatePhoto } from "~/services/auth";
@@ -7,8 +7,12 @@ import { useDispatch } from "react-redux";
 import { setAlert } from "~/slices/alertSlice";
 
 export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
-  const [image, setImage] = useState(photo);
+  const [image, setImage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
+
+  useEffect(() => {
+    setImage(photo);
+  }, [photo]);
 
   const showSize = (size) => {
     switch (size) {
