@@ -67,6 +67,7 @@ export const Address = () => {
             dispatch(
               setProfile({
                 name: data.name,
+                avatar: data.avatar,
                 email: data.email,
                 city: data.city,
                 address: data.address,

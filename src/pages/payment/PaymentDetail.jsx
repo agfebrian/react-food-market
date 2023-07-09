@@ -38,7 +38,7 @@ export const PaymentDetail = () => {
         setProfile({
           id: user.id,
           name: user.name,
-          image: user.avatar,
+          avatar: user.avatar,
           email: user.email,
           address: user.address,
           city: user.city,

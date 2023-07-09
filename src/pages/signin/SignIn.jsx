@@ -53,6 +53,7 @@ export const SignIn = () => {
             setProfile({
               id: data.id,
               name: data.name,
+              avatar: data.avatar,
               email: data.email,
               city: data.city,
               address: data.address,
