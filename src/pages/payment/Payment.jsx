@@ -5,8 +5,10 @@ import { Navigation, Button } from "~/components/ui";
 import { SectionOrder, SectionDeliver } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { setAlert } from "~/slices/alertSlice";
-import { useCalculate } from "~/hooks";
+import { setProfile } from "~/slices/profileSlice";
+import { useCalculate, useFetch } from "~/hooks";
 import { postOrders } from "~/services/order";
+import { fetchProfile } from "~/services/auth";
 
 export const Payment = () => {
   const dispatch = useDispatch();
@@ -58,6 +60,42 @@ export const Payment = () => {
       setIsLoading(false);
     }
   };
+
+  const fetchUserProfile = async () => {
+    try {
+      const {
+        data: { status, data },
+      } = await fetchProfile();
+      if (status) {
+        dispatch(
+          setProfile({
+            id: data.id,
+            name: data.name,
+            avatar: data.avatar,
+            email: data.email,
+            city: data.city,
+            address: data.address,
+            phoneNumber: data.phone_number,
+            houseNumber: data.house_number,
+          }),
+        );
+      }
+    } catch (error) {
+      dispatch(
+        setAlert({
+          status: true,
+          message: "Terjadi kesalahan server",
+          type: "error",
+        }),
+      );
+    }
+  };
+
+  useFetch(() => {
+    if (!profile.name) {
+      fetchUserProfile();
+    }
+  });
 
   return (
     <Page>
