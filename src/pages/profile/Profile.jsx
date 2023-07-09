@@ -127,7 +127,7 @@ export const Profile = () => {
             <Avatar
               size="lg"
               rounded="circle"
-              photo={profile.image}
+              photo={profile.avatar}
               uploadPhoto={true}
             />
           </BorderAvatar>
