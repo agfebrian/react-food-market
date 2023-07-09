@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "~/utils/storage";
+import { setToken, getToken } from "~/utils/storage";
 
 const http = axios.create({
   baseURL: import.meta.env.VITE_APP_URL_API,
@@ -15,6 +15,17 @@ http.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error),
+);
+
+http.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const { response } = error;
+    if (response.status === 401) {
+      setToken("");
+    }
+    Promise.reject(error);
+  },
 );
 
 export default http;
