@@ -8,6 +8,7 @@ import {
   NavigationBottom,
   CardSkeleton,
   ProfileSkeleton,
+  Drawer,
 } from "~/components/ui";
 import { ProductPopular, ProductRecommended, ProductTaste } from "./components";
 import { fetchAllFoods } from "~/services/home";
@@ -131,13 +132,20 @@ export const Home = () => {
     }
   });
 
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const closeDrawer = (value) => {
+    setIsOpenDrawer(value);
+  };
+
   return (
     <Page className="min-h-screen">
+      <Drawer isOpen={isOpenDrawer} handleClose={closeDrawer} />
       <Container>
         <Navigation
           title="FoodMarket"
           description="Let's get some foods"
           avatar={profile.avatar || PlaceholderUser}
+          handleOpenDrawer={() => setIsOpenDrawer(true)}
         />
         <div className="flex gap-6 overflow-x-auto px-6 pb-6 pt-6">
           {loadingFoodSuggest
