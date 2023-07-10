@@ -10,3 +10,4 @@ export * from "./card";
 export * from "./alert/Alert";
 export * from "./skeleton";
 export * from "./rating/Rating";
+export * from "./drawer/Drawer";
