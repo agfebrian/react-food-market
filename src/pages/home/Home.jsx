@@ -17,7 +17,7 @@ import { setProfile } from "~/slices/profileSlice";
 import { setAlert } from "~/slices/alertSlice";
 import { useFetch, useLocalStorage } from "~/hooks";
 
-import ImageUser from "~/assets/images/pic-user.png";
+import PlaceholderUser from "~/assets/images/placeholder-user.jpg";
 
 export const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -137,7 +137,7 @@ export const Home = () => {
         <Navigation
           title="FoodMarket"
           description="Let's get some foods"
-          avatar={ImageUser}
+          avatar={profile.avatar || PlaceholderUser}
         />
         <div className="flex gap-6 overflow-x-auto px-6 pb-6 pt-6">
           {loadingFoodSuggest
