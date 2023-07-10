@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { Navigation, Button } from "..";
+import { Container } from "~/components/layout";
 import { updatePhoto } from "~/services/auth";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -42,7 +43,6 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
 
   const handleChange = (event) => {
     const preview = URL.createObjectURL(event.target.files[0]);
-    setImage(event.target.files[0]);
     setPreviewImage(preview);
   };
 
@@ -96,34 +96,36 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
   if (previewImage) {
     return (
       <div className="absolute left-0 top-0 z-20 flex min-h-screen w-full flex-col bg-brand-grey">
-        <Navigation
-          title="Preview Avatar"
-          description="Selection your avatar"
-          isBack={true}
-          handleBack={() => setPreviewImage("")}
-        />
-        <div className="mt-[26px] flex flex-col gap-3 bg-white p-4">
-          <img src={previewImage} width="100%" height={300} alt="preview" />
-          <div className="flex gap-3">
-            <Button
-              color="secondary"
-              type="button"
-              className="w-full"
-              handleClick={() => setPreviewImage("")}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              className="w-full"
-              disabled={loading}
-              loading={loading}
-              handleClick={updateProfilePhoto}
-            >
-              Confirm
-            </Button>
+        <Container>
+          <Navigation
+            title="Preview Avatar"
+            description="Selection your avatar"
+            isBack={true}
+            handleBack={() => setPreviewImage("")}
+          />
+          <div className="mt-[26px] flex flex-col gap-3 bg-white p-4">
+            <img src={previewImage} width="100%" height={300} alt="preview" />
+            <div className="flex gap-3">
+              <Button
+                color="secondary"
+                type="button"
+                className="w-full"
+                handleClick={() => setPreviewImage("")}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                className="w-full"
+                disabled={loading}
+                loading={loading}
+                handleClick={updateProfilePhoto}
+              >
+                Confirm
+              </Button>
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
     );
   }
