@@ -133,7 +133,11 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
       {image ? (
         <img
           src={image}
-          className={clsx(showSize(size), showRounded(rounded))}
+          className={clsx(
+            showSize(size),
+            showRounded(rounded),
+            "bg-cover object-cover object-center",
+          )}
           srcSet={`${image} 300w`}
           sizes="300px"
           loading="lazy"
