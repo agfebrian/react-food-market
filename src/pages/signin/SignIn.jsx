@@ -37,11 +37,10 @@ export const SignIn = () => {
       await new Promise((r) => setTimeout(r, 1000));
       try {
         const {
-          status,
-          data: { data, message },
+          data: { status, data, message },
         } = await http.post("/auth/login", values);
 
-        if (status === 200) {
+        if (status) {
           dispatch(
             setAlert({
               show: true,

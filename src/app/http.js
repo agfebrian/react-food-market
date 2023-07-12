@@ -24,7 +24,7 @@ http.interceptors.response.use(
     if (response.status === 401) {
       setToken("");
     }
-    Promise.reject(error);
+    return response;
   },
 );
 
