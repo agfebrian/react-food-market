@@ -178,7 +178,9 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
         />
       ) : (
         <div className={style}>
-          <p className="text-sm font-light text-brand-secondary">Add Photo</p>
+          <p className="text-center text-sm font-light text-brand-secondary">
+            Add Photo
+          </p>
         </div>
       )}
       {uploadPhoto && (
