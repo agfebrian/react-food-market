@@ -6,6 +6,7 @@ import { updatePhoto } from "~/services/auth";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAlert } from "~/slices/alertSlice";
+import { setAvatar } from "~/slices/signupSlice";
 
 export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
   const [image, setImage] = useState("");
@@ -92,7 +93,15 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
       } finally {
         setLoading(false);
       }
+      return;
     }
+    dispatch(
+      setAvatar({
+        previewAvatar: previewImage,
+        blobAvatar: blobImage,
+      }),
+    );
+    setPreviewImage("");
   };
 
   if (previewImage) {
