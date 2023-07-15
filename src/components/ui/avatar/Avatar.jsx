@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAlert } from "~/slices/alertSlice";
 import { setAvatar } from "~/slices/signupSlice";
+import { setProfile } from "~/slices/profileSlice";
 
 export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
   const [image, setImage] = useState("");
@@ -64,8 +65,28 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
         } = await updatePhoto(formData);
 
         if (status) {
+          const {
+            name,
+            email,
+            avatar,
+            address,
+            city,
+            phoneNumber,
+            houseNumber,
+          } = data;
           setImage(previewImage);
           setPreviewImage("");
+          dispatch(
+            setProfile({
+              name,
+              email,
+              avatar,
+              address,
+              city,
+              phoneNumber,
+              houseNumber,
+            }),
+          );
           dispatch(
             setAlert({
               show: true,
