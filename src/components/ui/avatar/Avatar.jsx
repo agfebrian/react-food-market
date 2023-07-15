@@ -10,6 +10,7 @@ import { setAlert } from "~/slices/alertSlice";
 export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
   const [image, setImage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
+  const [blobImage, setBlobImage] = useState(null);
 
   useEffect(() => {
     setImage(photo);
@@ -43,6 +44,7 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
 
   const handleChange = (event) => {
     const preview = URL.createObjectURL(event.target.files[0]);
+    setBlobImage(event.target.files[0]);
     setPreviewImage(preview);
   };
 
@@ -55,7 +57,7 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
       setLoading(true);
       try {
         const formData = new FormData();
-        formData.append("avatar", image);
+        formData.append("avatar", blobImage);
         const {
           data: { status, data, message },
         } = await updatePhoto(formData);
