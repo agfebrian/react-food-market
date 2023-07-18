@@ -6,10 +6,13 @@ import { updatePhoto } from "~/services/auth";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAlert } from "~/slices/alertSlice";
+import { setAvatar } from "~/slices/signupSlice";
+import { setProfile } from "~/slices/profileSlice";
 
 export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
   const [image, setImage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
+  const [blobImage, setBlobImage] = useState(null);
 
   useEffect(() => {
     setImage(photo);
@@ -43,6 +46,7 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
 
   const handleChange = (event) => {
     const preview = URL.createObjectURL(event.target.files[0]);
+    setBlobImage(event.target.files[0]);
     setPreviewImage(preview);
   };
 
@@ -55,14 +59,34 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
       setLoading(true);
       try {
         const formData = new FormData();
-        formData.append("avatar", image);
+        formData.append("avatar", blobImage);
         const {
           data: { status, data, message },
         } = await updatePhoto(formData);
 
         if (status) {
+          const {
+            name,
+            email,
+            avatar,
+            address,
+            city,
+            phoneNumber,
+            houseNumber,
+          } = data;
           setImage(previewImage);
           setPreviewImage("");
+          dispatch(
+            setProfile({
+              name,
+              email,
+              avatar,
+              address,
+              city,
+              phoneNumber,
+              houseNumber,
+            }),
+          );
           dispatch(
             setAlert({
               show: true,
@@ -90,7 +114,15 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
       } finally {
         setLoading(false);
       }
+      return;
     }
+    dispatch(
+      setAvatar({
+        previewAvatar: previewImage,
+        blobAvatar: blobImage,
+      }),
+    );
+    setPreviewImage("");
   };
 
   if (previewImage) {
@@ -146,7 +178,9 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
         />
       ) : (
         <div className={style}>
-          <p className="text-sm font-light text-brand-secondary">Add Photo</p>
+          <p className="text-center text-sm font-light text-brand-secondary">
+            Add Photo
+          </p>
         </div>
       )}
       {uploadPhoto && (

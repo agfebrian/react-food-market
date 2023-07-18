@@ -5,7 +5,7 @@ import { Page, Container, SuccessSignUp } from "~/components/layout";
 import { Navigation, Button, Input, Select } from "~/components/ui";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import http from "~/app/http";
+import { registerUser, updatePhoto } from "~/services/auth";
 import { useNavigate } from "react-router-dom";
 import { setAlert } from "~/slices/alertSlice";
 import { setToken } from "~/utils/storage";
@@ -41,58 +41,47 @@ export const Address = () => {
     }),
     onSubmit: async (values) => {
       setLoading(true);
-      await new Promise((r) => setTimeout(r, 1000));
+      const { name, email, password, previewAvatar, blobAvatar } = signup;
       const payload = {
-        ...signup,
+        ...{ name, email, password },
         ...values,
         ...{ phone_number: values.phone_number.toString() },
         ...{ house_number: values.house_number.toString() },
       };
-      http
-        .post("/auth/register", payload)
-        .then((res) => {
-          const {
-            status,
-            data: { data },
-          } = res;
 
-          if (status === 200) {
-            dispatch(
-              setAlert({
-                show: true,
-                message: "Success user register",
-                type: "success",
-              }),
-            );
-            dispatch(
-              setProfile({
-                name: data.name,
-                avatar: data.avatar,
-                email: data.email,
-                city: data.city,
-                address: data.address,
-                phoneNumber: data.phoneNumber,
-                houseNumber: data.houseNumber,
-              }),
-            );
-            setToken(data.token);
-            setTimeout(() => setSuccessSignup(true), 1000);
-          } else {
-            dispatch(
-              setAlert({
-                show: true,
-                message: message,
-                type: "error",
-              }),
-            );
+      try {
+        const {
+          status,
+          data: { data },
+        } = await registerUser(payload);
+
+        if (status === 200) {
+          setToken(data.token);
+          if (previewAvatar) {
+            const formData = new FormData();
+            formData.append("avatar", blobAvatar);
+            await updatePhoto(formData);
           }
-        })
-        .catch((err) => {
-          const {
-            response: {
-              data: { message },
-            },
-          } = err;
+          dispatch(
+            setAlert({
+              show: true,
+              message: "Success user register",
+              type: "success",
+            }),
+          );
+          dispatch(
+            setProfile({
+              name: data.name,
+              avatar: data.avatar,
+              email: data.email,
+              city: data.city,
+              address: data.address,
+              phoneNumber: data.phoneNumber,
+              houseNumber: data.houseNumber,
+            }),
+          );
+          setTimeout(() => setSuccessSignup(true), 1000);
+        } else {
           dispatch(
             setAlert({
               show: true,
@@ -100,8 +89,23 @@ export const Address = () => {
               type: "error",
             }),
           );
-        })
-        .finally(() => setLoading(false));
+        }
+      } catch (error) {
+        const {
+          response: {
+            data: { message },
+          },
+        } = err;
+        dispatch(
+          setAlert({
+            show: true,
+            message: message,
+            type: "error",
+          }),
+        );
+      } finally {
+        setLoading(false);
+      }
     },
   });
   const [successSignup, setSuccessSignup] = useState(false);

@@ -11,3 +11,8 @@ export const updatePhoto = async (payload) => {
   });
   return data;
 };
+
+export const registerUser = async (payload) => {
+  const data = await http.post("/auth/register", payload);
+  return data;
+};

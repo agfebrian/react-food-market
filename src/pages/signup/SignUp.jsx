@@ -11,13 +11,12 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSignup } from "~/slices/signupSlice";
 
 export const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState();
   const {
     values,
     handleChange,
@@ -39,8 +38,6 @@ export const SignUp = () => {
       password: Yup.string().min(8).required("Password is required"),
     }),
     onSubmit: async (values) => {
-      setLoading(true);
-      await new Promise((r) => setTimeout(r, 1000));
       dispatch(
         setSignup({
           name: values.name,
@@ -49,9 +46,9 @@ export const SignUp = () => {
         }),
       );
       navigate("/register/address");
-      setLoading(false);
     },
   });
+  const { previewAvatar } = useSelector((state) => state.signup);
 
   return (
     <Page>
@@ -69,7 +66,11 @@ export const SignUp = () => {
             className="mt-5 flex flex-col gap-4 bg-white px-6 py-7"
           >
             <BorderAvatar rounded="circle" className="mx-auto">
-              <Avatar rounded="circle" />
+              <Avatar
+                rounded="circle"
+                photo={previewAvatar}
+                uploadPhoto={true}
+              />
             </BorderAvatar>
             <div>
               <Input
@@ -120,13 +121,7 @@ export const SignUp = () => {
                 <p className="mt-1 text-sm text-error">{errors.password}</p>
               )}
             </div>
-            <Button
-              type="submit"
-              color="primary"
-              className="mt-2"
-              disabled={loading}
-              loading={loading}
-            >
+            <Button type="submit" color="primary" className="mt-2">
               Continue
             </Button>
           </form>
