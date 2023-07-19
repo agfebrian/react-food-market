@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Input } from "..";
 
 export const InputPassword = ({ label, placeholder, className, ...rest }) => {
-  const [typeInput, setTypeInput] = useState("password");
   const [showPassword, setShowPassword] = useState(false);
+  const typeInput = showPassword ? "type" : "password";
 
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  useEffect(() => {
-    setTypeInput(showPassword ? "type" : "password");
-  }, [showPassword]);
+  const toggleShowPassword = () => setShowPassword(!showPassword);
 
   return (
     <div className="relative flex flex-col justify-center">
