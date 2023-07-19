@@ -52,7 +52,7 @@ export const Address = () => {
       try {
         const {
           status,
-          data: { data },
+          data: { data, message },
         } = await registerUser(payload);
 
         if (status === 200) {
