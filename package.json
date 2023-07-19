@@ -44,7 +44,7 @@
     "workbox-window": "^7.0.0"
   },
   "lint-staged": {
-    "*.{js.jsx}": "eslint --cache --fix",
+    "*.{js,jsx}": "eslint --cache --fix",
     "*.{js,jsx,json}": "prettier --write"
   }
 }
