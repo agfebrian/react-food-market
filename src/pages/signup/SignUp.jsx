@@ -5,12 +5,12 @@ import {
   Navigation,
   Button,
   Input,
+  InputPassword,
   Avatar,
   BorderAvatar,
 } from "~/components/ui";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignup } from "~/slices/signupSlice";
 
@@ -104,9 +104,8 @@ export const SignUp = () => {
               )}
             </div>
             <div>
-              <Input
+              <InputPassword
                 label="Password"
-                type="password"
                 name="password"
                 value={values.password}
                 onChange={handleChange}

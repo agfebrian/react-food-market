@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import http from "~/app/http";
 import { setProfile } from "~/slices/profileSlice";
 import { setToken } from "~/utils/storage";
+import { InputPassword } from "~/components/ui/input/InputPassword";
 
 export const SignIn = () => {
   const dispatch = useDispatch();
@@ -116,9 +117,8 @@ export const SignIn = () => {
               )}
             </div>
             <div>
-              <Input
+              <InputPassword
                 label="Password"
-                type="password"
                 name="password"
                 value={values.password}
                 onChange={handleChange}
