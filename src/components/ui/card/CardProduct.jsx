@@ -7,9 +7,9 @@ export const CardProduct = ({ id, image, title, rating }) => {
     <div className="min-w-52 h-[210px] flex-shrink-0 rounded-lg bg-white">
       <NavLink className="min-w-52 block" to={`/detail/${id}`}>
         <img
-          className="h-36 rounded-lg"
-          srcSet={`${image} 300w, ${image} 768w, ${image} 1280w,`}
-          sizes="300px, 768px, 1280px"
+          className="rounded-lg"
+          srcSet={`${image} 150w, ${image} 208w, ${image} 1080w`}
+          sizes="100vw"
           width={208}
           height={144}
           src={image}
