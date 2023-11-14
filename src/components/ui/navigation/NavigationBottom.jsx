@@ -8,9 +8,15 @@ export const NavigationBottom = () => {
   return (
     <div className="fixed bottom-0 left-0 flex h-[60px] w-full items-center justify-center bg-white">
       <div className="flex w-full max-w-xl justify-evenly">
-        <NavLink to="/">{HomeIcon}</NavLink>
-        <NavLink to="/orders">{OrderIcon}</NavLink>
-        <NavLink to="/account">{AccountIcon}</NavLink>
+        <NavLink to="/" aria-label="Home Page">
+          {HomeIcon}
+        </NavLink>
+        <NavLink to="/orders" aria-label="Order Page">
+          {OrderIcon}
+        </NavLink>
+        <NavLink to="/account" aria-label="Account Page">
+          {AccountIcon}
+        </NavLink>
       </div>
     </div>
   );

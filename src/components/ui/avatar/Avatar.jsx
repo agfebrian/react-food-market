@@ -172,9 +172,8 @@ export const Avatar = ({ size, rounded, photo, className, uploadPhoto }) => {
             showRounded(rounded),
             "bg-cover object-cover object-center",
           )}
-          srcSet={`${image} 300w`}
+          alt="user"
           sizes="300px"
-          loading="lazy"
         />
       ) : (
         <div className={style}>

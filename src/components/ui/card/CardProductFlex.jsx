@@ -9,6 +9,7 @@ export const CardProductFlex = ({ image, title, subtitle, children }) => {
         width={60}
         height={60}
         loading="lazy"
+        alt={title}
       />
       <div className="ml-3 flex flex-col justify-center">
         <p className="text-base font-normal text-black">{title}</p>
