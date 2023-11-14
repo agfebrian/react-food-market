@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import http from "~/app/http";
 import { setProfile } from "~/slices/profileSlice";
 import { setToken } from "~/utils/storage";
+import { InputPassword } from "~/components/ui/input/InputPassword";
 
 export const SignIn = () => {
   const dispatch = useDispatch();
@@ -37,11 +38,10 @@ export const SignIn = () => {
       await new Promise((r) => setTimeout(r, 1000));
       try {
         const {
-          status,
-          data: { data, message },
+          data: { status, data, message },
         } = await http.post("/auth/login", values);
 
-        if (status === 200) {
+        if (status) {
           dispatch(
             setAlert({
               show: true,
@@ -117,9 +117,8 @@ export const SignIn = () => {
               )}
             </div>
             <div>
-              <Input
+              <InputPassword
                 label="Password"
-                type="password"
                 name="password"
                 value={values.password}
                 onChange={handleChange}
