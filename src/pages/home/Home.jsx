@@ -157,6 +157,7 @@ export const Home = () => {
                   title={item.name}
                   image={item.image}
                   rating={item.rating}
+                  fetchpriority="high"
                 />
               ))}
         </div>
