@@ -7,24 +7,20 @@ export const Protected = ({ children }) => {
   const location = useLocation();
   const [token, _setToken] = useLocalStorage("token", "");
 
-  if (!token) {
-    useEffect(() => {
-      if (
-        location.pathname != "/login" &&
-        !location.pathname.includes("/register")
-      ) {
-        navigate("/login");
-      }
-    }, []);
-  } else {
-    useEffect(() => {
-      if (
-        location.pathname == "/login" ||
-        location.pathname.includes("/register")
-      ) {
-        navigate("/");
-      }
-    });
-  }
+  useEffect(() => {
+    if (
+      !token &&
+      location.pathname !== "/login" &&
+      !location.pathname.includes("/register")
+    ) {
+      navigate("/login", { replace: true });
+    } else if (
+      (token && location.pathname === "/login") ||
+      location.pathname.includes("/register")
+    ) {
+      navigate("/");
+    }
+  }, [token]);
+
   return children;
 };
